@@ -65,7 +65,7 @@ private extension SignInView{
             idTextField.topAnchor.constraint(equalTo: idLabel.bottomAnchor),
             idTextField.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
             idTextField.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
-            idTextField.heightAnchor.constraint(equalToConstant: 50)
+            idTextField.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
     
@@ -75,7 +75,7 @@ private extension SignInView{
         passWordLabel.text = "비밀번호"
         passWordLabel.font = UIFont.boldSystemFont(ofSize: 17)
         NSLayoutConstraint.activate([
-            passWordLabel.topAnchor.constraint(equalTo: idTextField.bottomAnchor, constant: 40),
+            passWordLabel.topAnchor.constraint(equalTo: idTextField.bottomAnchor, constant: .defaultPadding),
             passWordLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
             passWordLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
         ])
@@ -84,7 +84,7 @@ private extension SignInView{
     func setUpPassWordTextField(){
         passWordTextField.translatesAutoresizingMaskIntoConstraints = false
         addSubview(passWordTextField)
-        passWordTextField.placeholder = "아이디를 입력해 주세요."
+        passWordTextField.placeholder = "비밀번호를 입력해 주세요."
         passWordTextField.layer.cornerRadius = 8
         passWordTextField.layer.borderWidth = 1
         passWordTextField.addPadding()
@@ -93,7 +93,7 @@ private extension SignInView{
             passWordTextField.topAnchor.constraint(equalTo: passWordLabel.bottomAnchor),
             passWordTextField.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
             passWordTextField.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
-            passWordTextField.heightAnchor.constraint(equalToConstant: 50)
+            passWordTextField.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
     
@@ -104,7 +104,7 @@ private extension SignInView{
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: passWordTextField.bottomAnchor,constant: 50),
+            stackView.topAnchor.constraint(equalTo: passWordTextField.bottomAnchor,constant: 40),
             stackView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
             stackView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
         ])
