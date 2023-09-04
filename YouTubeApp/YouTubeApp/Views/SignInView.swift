@@ -46,7 +46,7 @@ private extension SignInView{
     func setUpIdLabel(){
         idLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(idLabel)
-        idLabel.text = "ID"
+        idLabel.text = "아이디"
         idLabel.font = UIFont.boldSystemFont(ofSize: 17)
         NSLayoutConstraint.activate([
             idLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 100),
@@ -74,7 +74,7 @@ private extension SignInView{
     func setUpPassWordLabel(){
         passWordLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(passWordLabel)
-        passWordLabel.text = "PassWord"
+        passWordLabel.text = "비밀번호"
         passWordLabel.font = UIFont.boldSystemFont(ofSize: 17)
         NSLayoutConstraint.activate([
             passWordLabel.topAnchor.constraint(equalTo: idTextField.bottomAnchor, constant: 40),
