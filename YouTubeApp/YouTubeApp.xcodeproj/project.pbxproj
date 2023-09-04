@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		089E52602AA5C8E300C6F158 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089E525F2AA5C8E300C6F158 /* Extension.swift */; };
 		08FF14182AA59E5500C3DD85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF14172AA59E5500C3DD85 /* AppDelegate.swift */; };
 		08FF141A2AA59E5500C3DD85 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF14192AA59E5500C3DD85 /* SceneDelegate.swift */; };
 		08FF14212AA59E5600C3DD85 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08FF14202AA59E5600C3DD85 /* Assets.xcassets */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		089E525F2AA5C8E300C6F158 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		08FF14142AA59E5500C3DD85 /* YouTubeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YouTubeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08FF14172AA59E5500C3DD85 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		08FF14192AA59E5500C3DD85 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 				08FF14172AA59E5500C3DD85 /* AppDelegate.swift */,
 				08FF142B2AA59EF000C3DD85 /* TabBarController.swift */,
 				08FF14192AA59E5500C3DD85 /* SceneDelegate.swift */,
+				089E525F2AA5C8E300C6F158 /* Extension.swift */,
 				08FF14382AA5A23D00C3DD85 /* Models */,
 				08FF14372AA5A22900C3DD85 /* Controllers */,
 				08FF14392AA5A24B00C3DD85 /* Views */,
@@ -213,6 +216,7 @@
 				08FF14302AA59FCC00C3DD85 /* SignUpViewController.swift in Sources */,
 				08FF142C2AA59EF000C3DD85 /* TabBarController.swift in Sources */,
 				08FF143F2AA5A44A00C3DD85 /* DetailView.swift in Sources */,
+				089E52602AA5C8E300C6F158 /* Extension.swift in Sources */,
 				08FF14412AA5A45400C3DD85 /* SignInView.swift in Sources */,
 				08FF14182AA59E5500C3DD85 /* AppDelegate.swift in Sources */,
 				08FF14432AA5A45F00C3DD85 /* SignUpView.swift in Sources */,

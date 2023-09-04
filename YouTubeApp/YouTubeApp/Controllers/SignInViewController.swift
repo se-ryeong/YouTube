@@ -11,7 +11,7 @@ final class SignInViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.view = SignInView()
         // Do any additional setup after loading the view.
     }
     
