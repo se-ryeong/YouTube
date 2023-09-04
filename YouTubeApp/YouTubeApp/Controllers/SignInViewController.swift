@@ -15,9 +15,6 @@ final class SignInViewController: UIViewController {
         super.viewDidLoad()
         setUp()
     }
-    
-    
-
 }
 
 extension SignInViewController{
@@ -25,12 +22,16 @@ extension SignInViewController{
     private func setUp(){
         self.view.addSubview(signInView)
         signInView.signUpButton.addTarget(self, action: #selector(signUpButtonTapped(_:)), for: .touchUpInside)
+        signInView.signInButton.addTarget(self, action: #selector(signInButtonTapped(_:)), for: .touchUpInside)
     }
     // MARK: - ButtonTapped
 
     @objc func signUpButtonTapped(_ sender: UIButton){
         let vc = SignUpViewController()
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    @objc func signInButtonTapped(_ sender: UIButton){
+        print(#function)
     }
     
 }
