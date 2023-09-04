@@ -9,21 +9,28 @@ import UIKit
 
 final class SignInViewController: UIViewController {
 
+    private let signInView = SignInView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view = SignInView()
-        // Do any additional setup after loading the view.
+        setUp()
     }
     
+    
 
-    /*
-    // MARK: - Navigation
+}
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+extension SignInViewController{
+    
+    private func setUp(){
+        self.view.addSubview(signInView)
+        signInView.signUpButton.addTarget(self, action: #selector(signUpButtonTapped(_:)), for: .touchUpInside)
     }
-    */
+    // MARK: - ButtonTapped
 
+    @objc func signUpButtonTapped(_ sender: UIButton){
+        let vc = SignUpViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
 }

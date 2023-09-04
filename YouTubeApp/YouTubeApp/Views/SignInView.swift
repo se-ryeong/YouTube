@@ -13,12 +13,13 @@ final class SignInView: UIView {
     public let idTextField = UITextField()
     private let passWordLabel = UILabel()
     public let passWordTextField = UITextField()
-    private let signInButton = UIButton()
-    private let signUpButton = UIButton()
+    public let signInButton = UIButton()
+    public let signUpButton = UIButton()
     private let stackView = UIStackView()
-    
+    private let textFieldHeight:CGFloat = 40
+
     override init(frame: CGRect) {
-        super.init(frame: frame)
+        super.init(frame: .zero)
         setUp()
     }
     
@@ -30,8 +31,11 @@ final class SignInView: UIView {
 
 private extension SignInView{
     
+    // MARK: - SetUp
+    
     func setUp(){
-        self.backgroundColor = .systemBackground
+        self.frame.size.width = UIScreen.main.bounds.size.width
+        self.frame.size.height = UIScreen.main.bounds.size.height
         setUpIdLabel()
         setUpIdTextField()
         setUpPassWordLabel()
@@ -43,13 +47,13 @@ private extension SignInView{
     
     func setUpIdLabel(){
         idLabel.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(idLabel)
+        self.addSubview(idLabel)
         idLabel.text = "아이디"
         idLabel.font = UIFont.boldSystemFont(ofSize: 17)
         NSLayoutConstraint.activate([
             idLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 100),
-            idLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
-            idLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
+            idLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: .defaultPadding),
+            idLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -.defaultPadding),
         ])
     }
     
@@ -65,10 +69,10 @@ private extension SignInView{
             idTextField.topAnchor.constraint(equalTo: idLabel.bottomAnchor),
             idTextField.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
             idTextField.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
-            idTextField.heightAnchor.constraint(equalToConstant: 40)
+            idTextField.heightAnchor.constraint(equalToConstant: textFieldHeight)
         ])
     }
-    
+
     func setUpPassWordLabel(){
         passWordLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(passWordLabel)
@@ -80,7 +84,7 @@ private extension SignInView{
             passWordLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
         ])
     }
-    
+
     func setUpPassWordTextField(){
         passWordTextField.translatesAutoresizingMaskIntoConstraints = false
         addSubview(passWordTextField)
@@ -93,10 +97,10 @@ private extension SignInView{
             passWordTextField.topAnchor.constraint(equalTo: passWordLabel.bottomAnchor),
             passWordTextField.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
             passWordTextField.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
-            passWordTextField.heightAnchor.constraint(equalToConstant: 40)
+            passWordTextField.heightAnchor.constraint(equalToConstant: textFieldHeight)
         ])
     }
-    
+
     func setUpStackView(){
         stackView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(stackView)
@@ -104,12 +108,12 @@ private extension SignInView{
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: passWordTextField.bottomAnchor,constant: 40),
+            stackView.topAnchor.constraint(equalTo: passWordTextField.bottomAnchor,constant: textFieldHeight),
             stackView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
             stackView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
         ])
     }
-    
+
     func setUpSignInButton(){
         signInButton.translatesAutoresizingMaskIntoConstraints = false
         stackView.addArrangedSubview(signInButton)
@@ -120,7 +124,7 @@ private extension SignInView{
         signInButton.layer.borderWidth = 1
 
     }
-    
+
     func setUpSignUpButton(){
         signUpButton.translatesAutoresizingMaskIntoConstraints = false
         stackView.addArrangedSubview(signUpButton)
