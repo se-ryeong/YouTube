@@ -11,7 +11,7 @@ final class SignInView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .blue
+        self.backgroundColor = .yellow
     }
     
     required init?(coder: NSCoder) {
