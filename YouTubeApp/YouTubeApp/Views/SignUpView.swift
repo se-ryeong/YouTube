@@ -33,6 +33,8 @@ private extension SignUpView{
     
     func setUp(){
         self.backgroundColor = .systemBackground
+        self.frame.size.width = UIScreen.main.bounds.size.width
+        self.frame.size.height = UIScreen.main.bounds.size.height
         setUpNickNameLabel()
         setUpNickNameTextField()
         setUpIdLabel()
