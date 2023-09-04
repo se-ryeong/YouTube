@@ -8,11 +8,12 @@
 import UIKit
 
 final class SignUpViewController: UIViewController {
+    
+    private let signUpView = SignUpView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
+        self.view = signUpView
     }
     
 
