@@ -11,7 +11,7 @@ final class UserDataManager{
     
     static let shared = UserDataManager()
     
-    var userData:[String:UserData] = [:]
+    var userData:[String:UserData] = ["12345678":UserData(passWord: "11111111", nickName: "gkdgkk")]
     
     func appendUser(nickName:String, id:String, passWord:String) -> Bool{
         
