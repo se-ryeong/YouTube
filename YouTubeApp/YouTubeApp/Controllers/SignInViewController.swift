@@ -30,7 +30,7 @@ final class SignInViewController: UIViewController {
 
     //KeyBoardUp,ViewUp
     @objc func keyboardUp(notification:NSNotification) {
-        UIView.animate(withDuration: 0.3, animations: { self.signInView.transform = CGAffineTransform(translationX: 0, y: -100) })
+        UIView.animate(withDuration: 0.3, animations: { self.signInView.transform = CGAffineTransform(translationX: 0, y: -50) })
     }
     //KeyBoardDown,ViewDown
     @objc func keyboardDown() {
@@ -45,6 +45,7 @@ final class SignInViewController: UIViewController {
 private extension SignInViewController{
     
     func setUp(){
+//        self.view.backgroundColor = UIColor.myBackGroundColor
         self.view.addSubview(signInView)
         signInView.signUpButton.addTarget(self, action: #selector(signUpButtonTapped(_:)), for: .touchUpInside)
         signInView.signInButton.addTarget(self, action: #selector(signInButtonTapped(_:)), for: .touchUpInside)
@@ -55,6 +56,7 @@ private extension SignInViewController{
     // MARK: - ButtonTapped
 
     @objc func signUpButtonTapped(_ sender: UIButton){
+        self.view.endEditing(true)
         let vc = SignUpViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
