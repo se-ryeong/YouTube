@@ -14,7 +14,7 @@ final class MainViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.translatesAutoresizingMaskIntoConstraints = false //오토레이아웃 쓰려면 무조건 false로
-        view.backgroundColor = .red
+        view.backgroundColor = .white
         view.register(ThumbnailCell.self, forCellWithReuseIdentifier: ThumbnailCell.identifier)
         
         return view
@@ -47,6 +47,7 @@ final class MainViewController: UIViewController {
         addSubViews()
         logolayout()
         imagelayout()
+        collectionViewLayout()
         //collectionView를 view에 추가
         
         collectionView.dataSource = self
@@ -58,6 +59,10 @@ final class MainViewController: UIViewController {
         view.addSubview(collectionView)
         view.addSubview(logoImageView)
         view.addSubview(profileImageView)
+    }
+    
+    func setLayout() {
+        //여기에 밑에 있는 함수 넣어서 깔끔하게 정리하기
     }
     
     func logolayout() {
@@ -74,17 +79,15 @@ final class MainViewController: UIViewController {
         ])
     }
     
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func collectionViewLayout() {
+        NSLayoutConstraint.activate([
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            collectionView.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 10),
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        
+        ])
     }
-    */
-
 }
 
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -95,5 +98,20 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ThumbnailCell.identifier, for: indexPath) as! ThumbnailCell
         return cell
+    }
+}
+
+extension MainViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let cellWidth = collectionView.bounds.width
+        let cellHeight: CGFloat = 220
+        
+        return CGSize(width: cellWidth, height: cellHeight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        let insets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        
+        return insets
     }
 }
