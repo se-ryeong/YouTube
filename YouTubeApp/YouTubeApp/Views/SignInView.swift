@@ -16,7 +16,7 @@ final class SignInView: UIView {
     public let signInButton = UIButton()
     public let signUpButton = UIButton()
     private let signUpInfoLabel = UILabel()
-    private let textFieldHeight:CGFloat = 60
+    private let cellHeight:CGFloat = 60
 
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -71,7 +71,7 @@ private extension SignInView{
             idTextField.topAnchor.constraint(equalTo: loginLabel.bottomAnchor, constant: 40),
             idTextField.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
             idTextField.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
-            idTextField.heightAnchor.constraint(equalToConstant: textFieldHeight)
+            idTextField.heightAnchor.constraint(equalToConstant: cellHeight)
         ])
     }
 
@@ -93,13 +93,13 @@ private extension SignInView{
         passWordTextField.attributedPlaceholder = NSAttributedString(string: "비밀번호", attributes: [.foregroundColor: UIColor.systemGray])
         passWordTextField.layer.cornerRadius = 4
         passWordTextField.backgroundColor = .darkGray
+        passWordTextField.textColor = UIColor.systemGray2
         passWordTextField.addPadding()
-        passWordTextField.layer.borderColor = UIColor.systemGray.cgColor
         NSLayoutConstraint.activate([
             passWordTextField.topAnchor.constraint(equalTo: idTextField.bottomAnchor,constant: .defaultPadding * 2),
             passWordTextField.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
             passWordTextField.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
-            passWordTextField.heightAnchor.constraint(equalToConstant: textFieldHeight)
+            passWordTextField.heightAnchor.constraint(equalToConstant: cellHeight)
         ])
     }
 
@@ -115,7 +115,7 @@ private extension SignInView{
             signInButton.topAnchor.constraint(equalTo: passWordTextField.bottomAnchor, constant: .defaultPadding * 2),
             signInButton.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
             signInButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
-            signInButton.heightAnchor.constraint(equalToConstant: textFieldHeight)
+            signInButton.heightAnchor.constraint(equalToConstant: cellHeight)
         ])
 
     }
