@@ -52,6 +52,12 @@ private extension SignUpViewController{
         signUpView.idTextField.delegate = self
         signUpView.passWordTextField.delegate = self
         signUpView.checkPassWordTextField.delegate = self
+        signUpView.signUpButton.addTarget(self, action: #selector(signUpButtonTapped(_:)), for: .touchUpInside)
+    }
+    @objc func signUpButtonTapped(_ sender: UIButton){
+        print(#function)
+        print(UserDataManager.shared.appendUser(nickName: "hi", id: "hi", passWord: "hi"))
+        print(UserDataManager.shared.userData)
     }
 }
 
