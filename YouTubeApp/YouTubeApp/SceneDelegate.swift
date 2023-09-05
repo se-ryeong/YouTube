@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         window?.backgroundColor = .systemBackground
         //작업하는 뷰로 설정
-        window?.rootViewController = MainViewController()
+        window?.rootViewController = MainViewController() //SignInViewController로 바뀜 - 회원가입때무네
         window?.makeKeyAndVisible()
         
     }
