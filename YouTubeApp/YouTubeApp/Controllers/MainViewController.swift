@@ -13,8 +13,8 @@ final class MainViewController: UIViewController {
     var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        view.translatesAutoresizingMaskIntoConstraints = false //오토레이아웃 쓰려면 무조건 false로 줘야함
-        view.backgroundColor = .white
+        view.translatesAutoresizingMaskIntoConstraints = false //오토레이아웃 쓰려면 무조건 false로
+        view.backgroundColor = .red
         view.register(ThumbnailCell.self, forCellWithReuseIdentifier: ThumbnailCell.identifier)
         
         return view
@@ -73,6 +73,7 @@ final class MainViewController: UIViewController {
             profileImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10)
         ])
     }
+    
     
     /*
     // MARK: - Navigation
