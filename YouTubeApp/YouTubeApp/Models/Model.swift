@@ -7,4 +7,7 @@
 
 import Foundation
 
-
+struct UserData{
+    var passWord:String
+    var nickName:String
+}
