@@ -23,7 +23,7 @@ final class MainViewController: UIViewController {
     let logoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "Logo")
+        imageView.image = UIImage(named: "movielogo")
         imageView.contentMode = .scaleAspectFit
 
         return imageView
