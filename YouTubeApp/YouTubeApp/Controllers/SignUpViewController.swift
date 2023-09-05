@@ -10,21 +10,67 @@ import UIKit
 final class SignUpViewController: UIViewController {
     
     private let signUpView = SignUpView()
+    
+    private var nowTextField = 0
+
+    // MARK: - LifeCycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view = signUpView
+        setUp()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardUp), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDown), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    // MARK: - 키보드 대응
+
+    //KeyBoardUp,ViewUp
+    @objc func keyboardUp(notification:NSNotification) {
+
+        if nowTextField != 0{
+            UIView.animate(withDuration: 0.3, animations: { self.signUpView.transform = CGAffineTransform(
+                translationX: 0, y: -((.defaultPadding * 2) + 40 + 17)
+            )})
+        }
+
+    }
+    //KeyBoardDown,ViewDown
+    @objc func keyboardDown() {
+        self.signUpView.transform = .identity
+    }
+    //배경 터치시 키보드 내려가는 메서드
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
+         self.view.endEditing(true)
+    }
+}
+private extension SignUpViewController{
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func setUp(){
+        self.view.addSubview(signUpView)
+        signUpView.nickNameTextField.delegate = self
+        signUpView.idTextField.delegate = self
+        signUpView.passWordTextField.delegate = self
+        signUpView.checkPassWordTextField.delegate = self
+        signUpView.signUpButton.addTarget(self, action: #selector(signUpButtonTapped(_:)), for: .touchUpInside)
     }
-    */
+    @objc func signUpButtonTapped(_ sender: UIButton){
+        print(#function)
+        print(UserDataManager.shared.appendUser(nickName: "hi", id: "hi", passWord: "hi"))
+        print(UserDataManager.shared.userData)
+    }
+}
 
+extension SignUpViewController: UITextFieldDelegate{
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == signUpView.nickNameTextField{
+            nowTextField = 0
+        } else if textField == signUpView.idTextField{
+            nowTextField = 1
+        } else if textField == signUpView.passWordTextField{
+            nowTextField = 2
+        } else {
+            nowTextField = 3
+        }
+    }
 }
