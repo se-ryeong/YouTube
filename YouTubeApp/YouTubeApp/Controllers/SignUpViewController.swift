@@ -28,9 +28,12 @@ final class SignUpViewController: UIViewController {
     //KeyBoardUp,ViewUp
     @objc func keyboardUp(notification:NSNotification) {
 
-        UIView.animate(withDuration: 0.3, animations: { self.signUpView.transform = CGAffineTransform(
-            translationX: 0, y: -((.defaultPadding * 2) + 40 + 17) * CGFloat(self.nowTextField)
-        )})
+        if nowTextField != 0{
+            UIView.animate(withDuration: 0.3, animations: { self.signUpView.transform = CGAffineTransform(
+                translationX: 0, y: -((.defaultPadding * 2) + 40 + 17)
+            )})
+        }
+
     }
     //KeyBoardDown,ViewDown
     @objc func keyboardDown() {

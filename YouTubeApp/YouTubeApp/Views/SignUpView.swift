@@ -17,6 +17,7 @@ final class SignUpView: UIView {
     public let passWordTextField = UITextField()
     private let checkPassWordLabel = UILabel()
     public let checkPassWordTextField = UITextField()
+    public let signUpButton = UIButton()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -43,6 +44,7 @@ private extension SignUpView{
         setUpPassWordTextField()
         setUpCheckPassWordLabel()
         setUpCheckPassWordTextField()
+        setUpSignUpButton()
     }
     
     func setUpNickNameLabel(){
@@ -154,6 +156,20 @@ private extension SignUpView{
             checkPassWordTextField.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding * 2),
             checkPassWordTextField.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding * 2),
             checkPassWordTextField.heightAnchor.constraint(equalToConstant: 40)
+        ])
+    }
+    
+    func setUpSignUpButton(){
+        signUpButton.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(signUpButton)
+        signUpButton.setTitle("회원가입", for: .normal)
+        signUpButton.backgroundColor = .systemGray
+        signUpButton.layer.cornerRadius = 8
+        NSLayoutConstraint.activate([
+            signUpButton.topAnchor.constraint(equalTo: checkPassWordTextField.bottomAnchor, constant: .defaultPadding * 2 + 17),
+            signUpButton.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding * 2),
+            signUpButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding * 2),
+            signUpButton.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
     
