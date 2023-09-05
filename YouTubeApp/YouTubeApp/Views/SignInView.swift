@@ -9,6 +9,7 @@ import UIKit
 
 final class SignInView: UIView {
 
+    private let logoImageView = UIImageView()
     private let idLabel = UILabel()
     public let idTextField = UITextField()
     private let passWordLabel = UILabel()
@@ -36,6 +37,7 @@ private extension SignInView{
     func setUp(){
         self.frame.size.width = UIScreen.main.bounds.size.width
         self.frame.size.height = UIScreen.main.bounds.size.height
+        setUpImageView()
         setUpIdLabel()
         setUpIdTextField()
         setUpPassWordLabel()
@@ -44,6 +46,17 @@ private extension SignInView{
         setUpSignUpButton()
         setUpSignInButton()
     }
+    func setUpImageView(){
+        logoImageView.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(logoImageView)
+        logoImageView.image = UIImage(named: "Logo")
+        NSLayoutConstraint.activate([
+            logoImageView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: .defaultPadding * 8),
+            logoImageView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding * 2),
+            logoImageView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding * 2),
+            logoImageView.heightAnchor.constraint(equalToConstant: 70)
+        ])
+    }
     
     func setUpIdLabel(){
         idLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -51,9 +64,9 @@ private extension SignInView{
         idLabel.text = "아이디"
         idLabel.font = UIFont.boldSystemFont(ofSize: 17)
         NSLayoutConstraint.activate([
-            idLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 100),
-            idLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: .defaultPadding),
-            idLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -.defaultPadding),
+            idLabel.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: .defaultPadding),
+            idLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: .defaultPadding * 2),
+            idLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -.defaultPadding * 2),
         ])
     }
     
@@ -67,8 +80,8 @@ private extension SignInView{
         idTextField.layer.borderColor = UIColor.systemGray.cgColor
         NSLayoutConstraint.activate([
             idTextField.topAnchor.constraint(equalTo: idLabel.bottomAnchor),
-            idTextField.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
-            idTextField.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
+            idTextField.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding * 2),
+            idTextField.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding * 2),
             idTextField.heightAnchor.constraint(equalToConstant: textFieldHeight)
         ])
     }
@@ -80,8 +93,8 @@ private extension SignInView{
         passWordLabel.font = UIFont.boldSystemFont(ofSize: 17)
         NSLayoutConstraint.activate([
             passWordLabel.topAnchor.constraint(equalTo: idTextField.bottomAnchor, constant: .defaultPadding),
-            passWordLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
-            passWordLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
+            passWordLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding * 2),
+            passWordLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding * 2),
         ])
     }
 
@@ -95,8 +108,8 @@ private extension SignInView{
         passWordTextField.layer.borderColor = UIColor.systemGray.cgColor
         NSLayoutConstraint.activate([
             passWordTextField.topAnchor.constraint(equalTo: passWordLabel.bottomAnchor),
-            passWordTextField.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
-            passWordTextField.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
+            passWordTextField.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding * 2),
+            passWordTextField.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding * 2),
             passWordTextField.heightAnchor.constraint(equalToConstant: textFieldHeight)
         ])
     }
@@ -109,8 +122,8 @@ private extension SignInView{
         stackView.distribution = .fillEqually
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: passWordTextField.bottomAnchor,constant: textFieldHeight),
-            stackView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
-            stackView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
+            stackView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding * 2),
+            stackView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding * 2),
         ])
     }
 
