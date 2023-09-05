@@ -10,6 +10,7 @@ import UIKit
 final class SignInViewController: UIViewController {
 
     private let signInView = SignInView()
+    private let userDataManager = UserDataManager.shared
     
     // MARK: - LifeCycle
 
@@ -66,7 +67,40 @@ private extension SignInViewController{
         self.navigationController?.pushViewController(vc, animated: true)
     }
     @objc func signInButtonTapped(_ sender: UIButton){
-        print(#function)
+        self.view.endEditing(true)
+        tryLogin()
+    }
+    private func tryLogin() -> Void{
+        guard let id = signInView.idTextField.text,
+              let passWord = signInView.passWordTextField.text else { return }
+        var state = ""
+        var content = ""
+        if id.count == 0{
+            state = "로그인 실패"
+            content = "아이디를 입력해주세요"
+        } else if passWord.count == 0{
+            state = "로그인 실패"
+            content = "비밀번호를 입력해주세요."
+        } else {
+            if userDataManager.userData[id] == nil{
+                state = "로그인 실패"
+                content = "등록되지 않은 아이디 입니다"
+            } else {
+                if userDataManager.userData[id]?.passWord == passWord{
+                    let tabbar = TabBarController()
+                    (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(tabbar, animated: false)
+                    print("LogIn 성공")
+                    return
+                } else {
+                    state = "로그인 실패"
+                    content = "비밀번호를 확인해 주세요."
+                }
+            }
+        }
+        let okAction = UIAlertAction(title: "확인", style: .default) { _ in }
+        let alert = UIAlertController(title: state, message: content, preferredStyle: .alert)
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
     }
     
 }

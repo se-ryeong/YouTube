@@ -39,7 +39,6 @@ private extension SignInView{
         self.backgroundColor = .myBackGroundColor
         setUpLoginLabel()
         setUpIdTextField()
-//        setUpPassWordLabel()
         setUpPassWordTextField()
         setUpSignInButton()
         setUpSignUpInfoLabel()
@@ -75,18 +74,6 @@ private extension SignInView{
         ])
     }
 
-//    func setUpPassWordLabel(){
-//        passWordLabel.translatesAutoresizingMaskIntoConstraints = false
-//        addSubview(passWordLabel)
-//        passWordLabel.text = "비밀번호"
-//        passWordLabel.font = UIFont.boldSystemFont(ofSize: 17)
-//        NSLayoutConstraint.activate([
-//            passWordLabel.topAnchor.constraint(equalTo: idTextField.bottomAnchor, constant: .defaultPadding),
-//            passWordLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
-//            passWordLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
-//        ])
-//    }
-
     func setUpPassWordTextField(){
         passWordTextField.translatesAutoresizingMaskIntoConstraints = false
         addSubview(passWordTextField)
@@ -94,6 +81,7 @@ private extension SignInView{
         passWordTextField.layer.cornerRadius = 4
         passWordTextField.backgroundColor = .darkGray
         passWordTextField.textColor = UIColor.systemGray2
+        passWordTextField.isSecureTextEntry = true
         passWordTextField.addPadding()
         NSLayoutConstraint.activate([
             passWordTextField.topAnchor.constraint(equalTo: idTextField.bottomAnchor,constant: .defaultPadding * 2),
@@ -135,7 +123,6 @@ private extension SignInView{
         signUpButton.translatesAutoresizingMaskIntoConstraints = false
         addSubview(signUpButton)
         signUpButton.setTitle("지금 가입하세요.", for: .normal)
-//        signInButton.tintColor = .myWhitePointColor
         signUpButton.setTitleColor(.myWhitePointColor, for: .normal)
         NSLayoutConstraint.activate([
             signUpButton.leadingAnchor.constraint(equalTo: signUpInfoLabel.trailingAnchor, constant: .defaultPadding / 2),

@@ -11,16 +11,10 @@ final class UserDataManager{
     
     static let shared = UserDataManager()
     
-    var userData:[String:UserData] = ["12345678":UserData(passWord: "11111111", nickName: "gkdgkk")]
+    var userData:[String:UserData] = ["1":UserData(passWord: "1", nickName: "test")]
     
-    func appendUser(nickName:String, id:String, passWord:String) -> Bool{
-        
-        if userData[id] == nil{
-            userData[id] = UserData(passWord: passWord, nickName: nickName)
-            return true
-        } else {
-            return false
-        }
+    public func appendUser(nickName:String, id:String, passWord:String){
+        userData[id] = UserData(passWord: passWord, nickName: nickName)
     }
     
     private init(){
