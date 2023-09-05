@@ -51,9 +51,9 @@ private extension SignUpView{
         nickNameLabel.text = "닉네임"
         nickNameLabel.font = UIFont.boldSystemFont(ofSize: 17)
         NSLayoutConstraint.activate([
-            nickNameLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 100),
-            nickNameLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
-            nickNameLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
+            nickNameLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: .defaultPadding * 2),
+            nickNameLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding * 2),
+            nickNameLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding * 2),
         ])
     }
     
@@ -67,8 +67,8 @@ private extension SignUpView{
         nickNameTextField.layer.borderColor = UIColor.systemGray.cgColor
         NSLayoutConstraint.activate([
             nickNameTextField.topAnchor.constraint(equalTo: nickNameLabel.bottomAnchor),
-            nickNameTextField.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
-            nickNameTextField.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
+            nickNameTextField.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding * 2),
+            nickNameTextField.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding * 2),
             nickNameTextField.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
@@ -79,9 +79,9 @@ private extension SignUpView{
         idLabel.text = "아이디"
         idLabel.font = UIFont.boldSystemFont(ofSize: 17)
         NSLayoutConstraint.activate([
-            idLabel.topAnchor.constraint(equalTo: nickNameTextField.bottomAnchor, constant: .defaultPadding),
-            idLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
-            idLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
+            idLabel.topAnchor.constraint(equalTo: nickNameTextField.bottomAnchor, constant: .defaultPadding * 2),
+            idLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding * 2),
+            idLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding * 2),
         ])
     }
     
@@ -95,8 +95,8 @@ private extension SignUpView{
         idTextField.layer.borderColor = UIColor.systemGray.cgColor
         NSLayoutConstraint.activate([
             idTextField.topAnchor.constraint(equalTo: idLabel.bottomAnchor),
-            idTextField.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
-            idTextField.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
+            idTextField.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding * 2),
+            idTextField.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding * 2),
             idTextField.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
@@ -107,9 +107,9 @@ private extension SignUpView{
         passWordLabel.text = "비밀번호"
         passWordLabel.font = UIFont.boldSystemFont(ofSize: 17)
         NSLayoutConstraint.activate([
-            passWordLabel.topAnchor.constraint(equalTo: idTextField.bottomAnchor, constant: .defaultPadding),
-            passWordLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
-            passWordLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
+            passWordLabel.topAnchor.constraint(equalTo: idTextField.bottomAnchor, constant: .defaultPadding * 2),
+            passWordLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding * 2),
+            passWordLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding * 2),
         ])
     }
     
@@ -123,8 +123,8 @@ private extension SignUpView{
         passWordTextField.layer.borderColor = UIColor.systemGray.cgColor
         NSLayoutConstraint.activate([
             passWordTextField.topAnchor.constraint(equalTo: passWordLabel.bottomAnchor),
-            passWordTextField.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
-            passWordTextField.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
+            passWordTextField.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding * 2),
+            passWordTextField.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding * 2),
             passWordTextField.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
@@ -135,9 +135,9 @@ private extension SignUpView{
         checkPassWordLabel.text = "비밀번호 확인"
         checkPassWordLabel.font = UIFont.boldSystemFont(ofSize: 17)
         NSLayoutConstraint.activate([
-            checkPassWordLabel.topAnchor.constraint(equalTo: passWordTextField.bottomAnchor, constant: .defaultPadding),
-            checkPassWordLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
-            checkPassWordLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
+            checkPassWordLabel.topAnchor.constraint(equalTo: passWordTextField.bottomAnchor, constant: .defaultPadding * 2),
+            checkPassWordLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding * 2),
+            checkPassWordLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding * 2),
         ])
     }
     
@@ -151,8 +151,8 @@ private extension SignUpView{
         checkPassWordTextField.layer.borderColor = UIColor.systemGray.cgColor
         NSLayoutConstraint.activate([
             checkPassWordTextField.topAnchor.constraint(equalTo: checkPassWordLabel.bottomAnchor),
-            checkPassWordTextField.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
-            checkPassWordTextField.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
+            checkPassWordTextField.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding * 2),
+            checkPassWordTextField.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding * 2),
             checkPassWordTextField.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
