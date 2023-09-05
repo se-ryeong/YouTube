@@ -63,12 +63,18 @@ private extension SignUpViewController{
         signUpView.signUpButton.addTarget(self, action: #selector(signUpButtonTapped(_:)), for: .touchUpInside)
     }
     @objc func signUpButtonTapped(_ sender: UIButton){
-        print(#function)
+        self.view.endEditing(true)
         guard let nickName = signUpView.nickNameTextField.text,
               let id = signUpView.idTextField.text,
               let passWord = signUpView.checkPassWordTextField.text else { return }
-        print(UserDataManager.shared.appendUser(nickName: nickName, id: id, passWord: passWord))
-        print(UserDataManager.shared.userData)
+        UserDataManager.shared.appendUser(nickName: nickName, id: id, passWord: passWord)
+        let alert = UIAlertController(title: "가입완료", message: "회원가입이 완료되었습니다", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "로그인 화면으로 이동", style: .default) { _ in
+            self.navigationController?.popViewController(animated: true)
+            }
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
+        
     }
     private func buttonHiddenMotion(toggle:Bool){
         UIView.transition(with: signUpView.signUpButton, duration: 0.5, options: .transitionFlipFromTop, animations: { [weak self] in
