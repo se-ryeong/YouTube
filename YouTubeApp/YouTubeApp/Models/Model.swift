@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct UserData{
+struct UserData: Codable{
     var passWord:String
     var nickName:String
 }

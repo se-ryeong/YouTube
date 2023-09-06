@@ -46,6 +46,7 @@ final class SignInViewController: UIViewController {
 private extension SignInViewController{
     
     func setUp(){
+        userDataManager.loadData()
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = .myBackGroundColor
