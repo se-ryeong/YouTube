@@ -11,13 +11,16 @@ final class SignInViewController: UIViewController {
 
     private let signInView = SignInView()
     private let userDataManager = UserDataManager.shared
+    private let youtubeManager = YouTubeManager()
     
     // MARK: - LifeCycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
+        setUpData()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardUp), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDown), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -58,6 +61,16 @@ private extension SignInViewController{
         signInView.signInButton.addTarget(self, action: #selector(signInButtonTapped(_:)), for: .touchUpInside)
         signInView.idTextField.delegate = self
         signInView.passWordTextField.delegate = self
+    }
+    func setUpData(){
+        youtubeManager.getSearchData(keyWord: "범죄도시"){ (data) in
+            if let data = data{
+                print(data.items[0].snippet.thumbnails.thumbnailsDefault.url)
+                print("getPopularData 성공")
+            } else {
+                print("getPopularData 실패")
+            }
+        }
     }
     
     // MARK: - ButtonTapped

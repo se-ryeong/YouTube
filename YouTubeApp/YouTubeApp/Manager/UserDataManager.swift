@@ -32,6 +32,7 @@ final class UserDataManager{
         if let data = UserDefaults.standard.object(forKey: "UserData") as? Data,
            let manager = try? decoder.decode([String:UserData].self, from: data) {
                 self.userData = manager
+            print("load 성공")
         }
     }
     
