@@ -70,3 +70,9 @@ struct Default: Codable {
 struct PageInfo: Codable {
     let totalResults, resultsPerPage: Int
 }
+
+enum NetworkError: Error {
+  case emptyResponse
+  case invalidResponse
+  case unknown(String)
+}
