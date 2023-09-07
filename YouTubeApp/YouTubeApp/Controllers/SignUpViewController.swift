@@ -67,7 +67,8 @@ private extension SignUpViewController{
         guard let nickName = signUpView.nickNameTextField.text,
               let id = signUpView.idTextField.text,
               let passWord = signUpView.checkPassWordTextField.text else { return }
-        UserDataManager.shared.appendUser(nickName: nickName, id: id, passWord: passWord)
+        userDataManager.appendUser(nickName: nickName, id: id, passWord: passWord)
+        userDataManager.setData()
         let alert = UIAlertController(title: "가입완료", message: "회원가입이 완료되었습니다", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "로그인 화면으로 이동", style: .default) { _ in
             self.navigationController?.popViewController(animated: true)

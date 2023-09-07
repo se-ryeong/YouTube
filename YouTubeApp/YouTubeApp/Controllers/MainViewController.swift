@@ -7,14 +7,17 @@
 
 import UIKit
 
-final class MainViewController: UIViewController {
-    // MARK: - Properties
 
+final class MainViewController: UIViewController {
+    
+    // MARK: - Properties
+    var videoItems: [Item] = []
+    
     var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         view.translatesAutoresizingMaskIntoConstraints = false //오토레이아웃 쓰려면 무조건 false로
-        view.backgroundColor = .white
+        view.backgroundColor = .black
         view.register(ThumbnailCell.self, forCellWithReuseIdentifier: ThumbnailCell.identifier)
         
         return view
@@ -44,6 +47,8 @@ final class MainViewController: UIViewController {
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .black
+        
         addSubViews()
         logolayout()
         imagelayout()
@@ -52,6 +57,14 @@ final class MainViewController: UIViewController {
         
         collectionView.dataSource = self
         collectionView.delegate = self
+        
+        YouTubeService().fetchYouTubeThumbnails() { [weak self] items in
+            self?.videoItems = items
+            
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
+        }
     }
     
     //순서: addSubViews(레이아웃이 겹치는 경우 순서 중요) 먼저 해주고, 오토레이아웃 지정해주기
@@ -85,25 +98,29 @@ final class MainViewController: UIViewController {
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             collectionView.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 10),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        
         ])
+    }
+
+    func collectionViews(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.bounds.width / 2 - 10, height: 220)
     }
 }
 
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return videoItems.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ThumbnailCell.identifier, for: indexPath) as! ThumbnailCell
+        cell.configureCell(item: videoItems[indexPath.row])
         return cell
     }
 }
 
 extension MainViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let cellWidth = collectionView.bounds.width
+        let cellWidth = collectionView.bounds.width - 30
         let cellHeight: CGFloat = 220
         
         return CGSize(width: cellWidth, height: cellHeight)
