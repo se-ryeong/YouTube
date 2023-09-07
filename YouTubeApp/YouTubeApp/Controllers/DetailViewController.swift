@@ -32,6 +32,7 @@ final class DetailViewController: UIViewController {
     }
     
     func setUpView() {
+        view.backgroundColor = .myBackGroundColor
         setUpPlayerView()
         setUpTitleLabel()
         setUpViewsLabel()
@@ -95,13 +96,15 @@ final class DetailViewController: UIViewController {
     
     func setUpDibsOnButton() {
         dibsOnButton.translatesAutoresizingMaskIntoConstraints = false
-        dibsOnButton.setImage(UIImage(systemName: "plus.square.on.square"), for: .normal)
-        dibsOnButton.tintColor = .white
+        dibsOnButton.setImage(UIImage(systemName: "plus.square"), for: .normal)
+        dibsOnButton.setTitle(" 찜하기", for: .normal)
+        //        dibsOnButton.setImage(UIImage(systemName: "checkmark.square.fill"), for: .normal)
+        //        dibsOnButton.setTitle("찜완료", for: .normal)
+        
+        dibsOnButton.tintColor = .myWhitePointColor
         dibsOnButton.backgroundColor = .darkGray
-        dibsOnButton.setTitle(" 찜하기", for: .normal)   // 클릭했을 때 plus.square.fill.on.square.fill(red) & 찜완료 로 전환될 수 있게
-        dibsOnButton.setTitleColor(.white, for: .normal)
+        dibsOnButton.setTitleColor(.myWhitePointColor, for: .normal)
         dibsOnButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 15)
-        //dibsOnButton.layer.borderColor = UIColor.white.cgColor
         dibsOnButton.layer.borderWidth = 1
         dibsOnButton.layer.cornerRadius = 15
         dibsOnButton.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
