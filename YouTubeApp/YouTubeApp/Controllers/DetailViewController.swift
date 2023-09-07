@@ -17,32 +17,14 @@ final class DetailViewController: UIViewController {
     let channelNameLabel = UILabel()
     private let commentLabel = UILabel()
     //  private let videoCollectionView = UICollectionView()
-    let videoId = "bK6ldnjE3Y0"
+    var videoId = "bK6ldnjE3Y0"
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
-        URLManager.shared.getJsonData(videoId) { result in
-            if case .success(let data) = result {
-                let item = self.decodeJSON(data)
-                print(item?.items[0].id)
-            }
-            switch result {
-            case .success(let data):
-                self.decodeJSON(data)
-            case .failure(_):
-                print("Fail")
-            }
-        }
+
     }
-    func decodeJSON(_ data: Data) -> YoutubeData? {
-        do {
-            let item = try JSONDecoder().decode(YoutubeData.self, from: data)
-            print("디코딩 성공")
-            return item
-        } catch {
-            print(error)
-            return nil
-        }
+    func bind(){
+
     }
     func setUpView() {
         view.backgroundColor = .black
@@ -75,7 +57,7 @@ final class DetailViewController: UIViewController {
         titleLabel.textColor = .white
         view.addSubview(titleLabel)
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.t, constant: 20),
+            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             titleLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding), // defaultPadding 값보다 작아도 될 듯
             titleLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding)
         ])

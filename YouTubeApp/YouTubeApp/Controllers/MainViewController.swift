@@ -58,7 +58,7 @@ final class MainViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         
-        YouTubeService().fetchYouTubeThumbnails() { [weak self] items in
+        YouTubeService().fetchYouTubeThumbnails{ [weak self] items in
             self?.videoItems = items
             
             DispatchQueue.main.async {
@@ -115,6 +115,10 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ThumbnailCell.identifier, for: indexPath) as! ThumbnailCell
         cell.configureCell(item: videoItems[indexPath.row])
         return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = DetailViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 

@@ -8,19 +8,24 @@
 import Foundation
 
 struct YouTubeService {
-
+//https://youtube.googleapis.com/youtube/v3/videos
+    
     func fetchYouTubeThumbnails(completion: @escaping (_ items: [Item])->Void) {
         let search = "official+movie+trailer" //원하는 동영상 검색어
         let apiKey = ApiKey.ryeong.getApiKey
-
         let baseURL = "https://www.googleapis.com/youtube/v3/search"
+        
+        //공용
         var urlComponent = URLComponents(string: baseURL)
         let partQuery = URLQueryItem(name: "part", value: "snippet") //필수 매개변수
-        let searchQuery = URLQueryItem(name: "q", value: search)
         let keyQuery = URLQueryItem(name: "key", value: apiKey)
+
+        //search
+        let searchQuery = URLQueryItem(name: "q", value: search)
         let maxResults = URLQueryItem(name: "maxResults", value: "20") //영상 개수
+                
+        let items: [URLQueryItem] = [partQuery,keyQuery,searchQuery,maxResults]
         
-        let items: [URLQueryItem] = [partQuery,searchQuery,keyQuery,maxResults]
         urlComponent?.queryItems = items
         
         guard let url = urlComponent?.url else { return }
@@ -47,4 +52,5 @@ struct YouTubeService {
         }
         task.resume()
     }
+
 }
