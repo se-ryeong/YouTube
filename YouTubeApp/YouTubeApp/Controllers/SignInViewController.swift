@@ -48,6 +48,15 @@ private extension SignInViewController{
     
     func setUp(){
         userDataManager.loadData()
+        if userDataManager.autoLogin{
+            print(userDataManager.autoLogin)
+            if userDataManager.loginId != ""{
+                let tabbar = TabBarController()
+                (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(tabbar, animated: true)
+                print("자동 LogIn 성공")
+            }
+        }
+
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = .myBackGroundColor
@@ -57,6 +66,7 @@ private extension SignInViewController{
         self.view.addSubview(signInView)
         signInView.signUpButton.addTarget(self, action: #selector(signUpButtonTapped(_:)), for: .touchUpInside)
         signInView.signInButton.addTarget(self, action: #selector(signInButtonTapped(_:)), for: .touchUpInside)
+        signInView.autoLoginButton.addTarget(self, action: #selector(autoLoginButtonTapped(_:)), for: .touchUpInside)
         signInView.idTextField.delegate = self
         signInView.passWordTextField.delegate = self
     }
@@ -71,6 +81,15 @@ private extension SignInViewController{
     @objc func signInButtonTapped(_ sender: UIButton){
         self.view.endEditing(true)
         tryLogin()
+    }
+    @objc func autoLoginButtonTapped(_ sender: UIButton){
+        self.view.endEditing(true)
+        userDataManager.autoLogin.toggle()
+        if userDataManager.autoLogin{
+            signInView.autoLoginButton.setImage(UIImage(systemName: "checkmark.square.fill"), for: .normal)
+        } else {
+            signInView.autoLoginButton.setImage(UIImage(systemName: "square.fill"), for: .normal)
+        }
     }
     private func tryLogin() -> Void{
         guard let id = signInView.idTextField.text,
@@ -89,6 +108,8 @@ private extension SignInViewController{
                 content = "등록되지 않은 아이디 입니다"
             } else {
                 if userDataManager.userData[id]?.passWord == passWord{
+                    userDataManager.loginId = id
+                    userDataManager.setData()
                     let tabbar = TabBarController()
                     (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(tabbar, animated: false)
                     print("LogIn 성공")

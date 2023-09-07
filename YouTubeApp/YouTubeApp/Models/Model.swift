@@ -8,8 +8,9 @@
 import Foundation
 
 struct UserData: Codable{
-    var passWord:String
-    var nickName:String
+    var passWord: String
+    var nickName: String
+    var likeList: [String]
 }
 
 struct YoutubeData: Codable {

@@ -17,6 +17,8 @@ final class SignInView: UIView {
     public let signUpButton = UIButton()
     private let signUpInfoLabel = UILabel()
     private let cellHeight:CGFloat = 60
+    public let autoLoginButton = UIButton()
+    private let userDataManager = UserDataManager.shared
 
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -41,6 +43,7 @@ private extension SignInView{
         setUpIdTextField()
         setUpPassWordTextField()
         setUpSignInButton()
+        setUpAutoLoginButton()
         setUpSignUpInfoLabel()
         setUpSignUpButton()
     }
@@ -90,7 +93,7 @@ private extension SignInView{
             passWordTextField.heightAnchor.constraint(equalToConstant: cellHeight)
         ])
     }
-
+    
     func setUpSignInButton(){
         signInButton.translatesAutoresizingMaskIntoConstraints = false
         addSubview(signInButton)
@@ -100,12 +103,35 @@ private extension SignInView{
         signInButton.layer.cornerRadius = 4
         signInButton.layer.borderWidth = 1
         NSLayoutConstraint.activate([
-            signInButton.topAnchor.constraint(equalTo: passWordTextField.bottomAnchor, constant: .defaultPadding * 2),
+            signInButton.topAnchor.constraint(equalTo: passWordTextField.bottomAnchor, constant: .defaultPadding * 3),
             signInButton.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
             signInButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
             signInButton.heightAnchor.constraint(equalToConstant: cellHeight)
         ])
 
+    }
+    
+    func setUpAutoLoginButton(){
+        autoLoginButton.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(autoLoginButton)
+        let intervalSpacing = 6.0
+        let halfIntervalSpacing = intervalSpacing / 2
+        autoLoginButton.contentEdgeInsets = .init(top: 0, left: halfIntervalSpacing, bottom: 0, right: halfIntervalSpacing)
+        autoLoginButton.imageEdgeInsets = .init(top: 0, left: -halfIntervalSpacing, bottom: 0, right: halfIntervalSpacing)
+        autoLoginButton.titleEdgeInsets = .init(top: 0, left: halfIntervalSpacing, bottom: 0, right: -halfIntervalSpacing)
+        autoLoginButton.setTitle("자동 로그인", for: .normal)
+        autoLoginButton.setTitleColor(UIColor.systemGray2, for: .normal)
+        
+        if userDataManager.autoLogin{
+            autoLoginButton.setImage(UIImage(systemName: "checkmark.square.fill"), for: .normal)
+        } else {
+            autoLoginButton.setImage(UIImage(systemName: "square.fill"), for: .normal)
+        }
+        autoLoginButton.tintColor = .systemGray2
+        NSLayoutConstraint.activate([
+            autoLoginButton.leadingAnchor.constraint(equalTo: signInButton.leadingAnchor),
+            autoLoginButton.topAnchor.constraint(equalTo: signInButton.bottomAnchor, constant: .defaultPadding / 2)
+        ])
     }
     
     func setUpSignUpInfoLabel(){
@@ -114,7 +140,7 @@ private extension SignInView{
         signUpInfoLabel.text = "Movie App 회원이 아닌가요?"
         signUpInfoLabel.textColor = .systemGray
         NSLayoutConstraint.activate([
-            signUpInfoLabel.topAnchor.constraint(equalTo: signInButton.bottomAnchor, constant: .defaultPadding * 2),
+            signUpInfoLabel.topAnchor.constraint(equalTo: signInButton.bottomAnchor, constant: .defaultPadding * 3),
             signUpInfoLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
         ])
     }
