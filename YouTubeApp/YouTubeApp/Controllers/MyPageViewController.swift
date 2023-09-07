@@ -7,24 +7,59 @@
 
 import UIKit
 
+let cellID = "Cell"
+
 final class MyPageViewController: UIViewController {
+    
+    let collectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        let MyPageframe = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        
+        return MyPageframe
+    }()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.view = MyPageView()
+        override func viewDidLoad() {
+            super.viewDidLoad()
+//            self.view = MyPageView()
+            
+            collectionView.dataSource = self
+            collectionView.delegate = self
 
-        // Do any additional setup after loading the view.
+            view.addSubview(collectionView)
+            
+            collectionView.translatesAutoresizingMaskIntoConstraints = false
+            
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+            collectionView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+            collectionView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+            
+            collectionView.register(MyPageView.self, forCellWithReuseIdentifier: cellID)
+        }
+}
+
+extension MyPageViewController: UICollectionViewDataSource {
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 4
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! MyPageView
+        
+        cell.backgroundColor = .blue
+        
+        return cell
     }
-    */
+    
+}
 
+extension MyPageViewController: UICollectionViewDelegateFlowLayout {
+    
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: (view.frame.width - 30) / 4, height: (view.frame.width - 30) / 4)
+    }
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 10
+    }
+    
 }
