@@ -11,6 +11,7 @@ final class MyPageViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view = MyPageView()
 
         // Do any additional setup after loading the view.
     }

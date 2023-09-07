@@ -9,14 +9,17 @@ import UIKit
 
 final class SignUpView: UIView {
 
-    private let nickNameLabel = UILabel()
+    private let signUpLabel = UILabel()
+    public let nickNameLabel = UILabel()
     public let nickNameTextField = UITextField()
-    private let idLabel = UILabel()
+    public let idLabel = UILabel()
     public let idTextField = UITextField()
-    private let passWordLabel = UILabel()
+    public let passWordLabel = UILabel()
     public let passWordTextField = UITextField()
-    private let checkPassWordLabel = UILabel()
+    public let checkPassWordLabel = UILabel()
     public let checkPassWordTextField = UITextField()
+    public let signUpButton = UIButton()
+    private let cellHeight:CGFloat = 60
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,129 +35,170 @@ final class SignUpView: UIView {
 private extension SignUpView{
     
     func setUp(){
-        self.backgroundColor = .systemBackground
-        setUpNickNameLabel()
+        self.backgroundColor = .myBackGroundColor
+        self.frame.size.width = UIScreen.main.bounds.size.width
+        self.frame.size.height = UIScreen.main.bounds.size.height
+        setUpSignUpLabel()
+        
         setUpNickNameTextField()
-        setUpIdLabel()
+        setUpNickNameLabel()
+        
         setUpIdTextField()
-        setUpPassWordLabel()
+        setUpIdLabel()
+        
         setUpPassWordTextField()
-        setUpCheckPassWordLabel()
+        setUpPassWordLabel()
+        
         setUpCheckPassWordTextField()
+        setUpCheckPassWordLabel()
+        
+        setUpSignUpButton()
     }
     
-    func setUpNickNameLabel(){
-        nickNameLabel.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(nickNameLabel)
-        nickNameLabel.text = "닉네임"
-        nickNameLabel.font = UIFont.boldSystemFont(ofSize: 17)
+    func setUpSignUpLabel(){
+        signUpLabel.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(signUpLabel)
+        signUpLabel.text = "회원가입"
+        signUpLabel.font = UIFont.boldSystemFont(ofSize: 40)
+        signUpLabel.textColor = .myWhitePointColor
         NSLayoutConstraint.activate([
-            nickNameLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 100),
-            nickNameLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
-            nickNameLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
+            signUpLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
+            signUpLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
+            signUpLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
         ])
     }
     
     func setUpNickNameTextField(){
         nickNameTextField.translatesAutoresizingMaskIntoConstraints = false
         addSubview(nickNameTextField)
-        nickNameTextField.placeholder = "닉네임을 입력해 주세요."
-        nickNameTextField.layer.cornerRadius = 8
-        nickNameTextField.layer.borderWidth = 1
+        nickNameTextField.attributedPlaceholder = NSAttributedString(string: "닉네임", attributes: [.foregroundColor: UIColor.systemGray])
+        nickNameTextField.layer.cornerRadius = 4
+        nickNameTextField.backgroundColor = .darkGray
+        nickNameTextField.textColor = UIColor.systemGray2
         nickNameTextField.addPadding()
-        nickNameTextField.layer.borderColor = UIColor.systemGray.cgColor
         NSLayoutConstraint.activate([
-            nickNameTextField.topAnchor.constraint(equalTo: nickNameLabel.bottomAnchor),
+            nickNameTextField.topAnchor.constraint(equalTo: signUpLabel.bottomAnchor, constant: .defaultPadding),
             nickNameTextField.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
             nickNameTextField.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
-            nickNameTextField.heightAnchor.constraint(equalToConstant: 40)
+            nickNameTextField.heightAnchor.constraint(equalToConstant: cellHeight)
         ])
     }
-    
-    func setUpIdLabel(){
-        idLabel.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(idLabel)
-        idLabel.text = "아이디"
-        idLabel.font = UIFont.boldSystemFont(ofSize: 17)
+    func setUpNickNameLabel(){
+        nickNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(nickNameLabel)
+        nickNameLabel.isHidden = true
+        nickNameLabel.font = UIFont.systemFont(ofSize: 15)
         NSLayoutConstraint.activate([
-            idLabel.topAnchor.constraint(equalTo: nickNameTextField.bottomAnchor, constant: .defaultPadding),
-            idLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
-            idLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
+            nickNameLabel.topAnchor.constraint(equalTo: self.nickNameTextField.bottomAnchor),
+            nickNameLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
+            nickNameLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
         ])
     }
     
     func setUpIdTextField(){
         idTextField.translatesAutoresizingMaskIntoConstraints = false
         addSubview(idTextField)
-        idTextField.placeholder = "아이디를 입력해 주세요."
-        idTextField.layer.cornerRadius = 8
-        idTextField.layer.borderWidth = 1
+        idTextField.attributedPlaceholder = NSAttributedString(string: "아이디", attributes: [.foregroundColor: UIColor.systemGray])
+        idTextField.layer.cornerRadius = 4
+        idTextField.backgroundColor = .darkGray
+        idTextField.textColor = UIColor.systemGray2
         idTextField.addPadding()
-        idTextField.layer.borderColor = UIColor.systemGray.cgColor
         NSLayoutConstraint.activate([
-            idTextField.topAnchor.constraint(equalTo: idLabel.bottomAnchor),
+            idTextField.topAnchor.constraint(equalTo: nickNameTextField.bottomAnchor, constant: .defaultPadding * 2),
             idTextField.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
             idTextField.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
-            idTextField.heightAnchor.constraint(equalToConstant: 40)
+            idTextField.heightAnchor.constraint(equalToConstant: cellHeight)
         ])
     }
     
-    func setUpPassWordLabel(){
-        passWordLabel.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(passWordLabel)
-        passWordLabel.text = "비밀번호"
-        passWordLabel.font = UIFont.boldSystemFont(ofSize: 17)
+    func setUpIdLabel(){
+        idLabel.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(idLabel)
+        idLabel.isHidden = true
+        idLabel.text = "8글자 이상의 아이디를 입력해주세요"
+        idLabel.font = UIFont.systemFont(ofSize: 15)
+        idLabel.textColor = .myRedPointColor
         NSLayoutConstraint.activate([
-            passWordLabel.topAnchor.constraint(equalTo: idTextField.bottomAnchor, constant: .defaultPadding),
-            passWordLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
-            passWordLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
+            idLabel.topAnchor.constraint(equalTo: idTextField.bottomAnchor),
+            idLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
+            idLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
         ])
     }
     
     func setUpPassWordTextField(){
         passWordTextField.translatesAutoresizingMaskIntoConstraints = false
         addSubview(passWordTextField)
-        passWordTextField.placeholder = "비밀번호를 입력해 주세요."
-        passWordTextField.layer.cornerRadius = 8
-        passWordTextField.layer.borderWidth = 1
+        passWordTextField.attributedPlaceholder = NSAttributedString(string: "비밀번호", attributes: [.foregroundColor: UIColor.systemGray])
+        passWordTextField.layer.cornerRadius = 4
+        passWordTextField.backgroundColor = .darkGray
+        passWordTextField.textColor = UIColor.systemGray2
+        passWordTextField.isSecureTextEntry = true
         passWordTextField.addPadding()
-        passWordTextField.layer.borderColor = UIColor.systemGray.cgColor
         NSLayoutConstraint.activate([
-            passWordTextField.topAnchor.constraint(equalTo: passWordLabel.bottomAnchor),
+            passWordTextField.topAnchor.constraint(equalTo: idTextField.bottomAnchor, constant: .defaultPadding * 2),
             passWordTextField.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
             passWordTextField.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
-            passWordTextField.heightAnchor.constraint(equalToConstant: 40)
+            passWordTextField.heightAnchor.constraint(equalToConstant: cellHeight)
         ])
     }
     
-    func setUpCheckPassWordLabel(){
-        checkPassWordLabel.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(checkPassWordLabel)
-        checkPassWordLabel.text = "비밀번호 확인"
-        checkPassWordLabel.font = UIFont.boldSystemFont(ofSize: 17)
+    func setUpPassWordLabel(){
+        passWordLabel.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(passWordLabel)
+        passWordLabel.isHidden = true
+        passWordLabel.text = "8글자 이상의 비밀번호를 입력해주세요"
+        passWordLabel.font = UIFont.systemFont(ofSize: 15)
+        passWordLabel.textColor = .myRedPointColor
         NSLayoutConstraint.activate([
-            checkPassWordLabel.topAnchor.constraint(equalTo: passWordTextField.bottomAnchor, constant: .defaultPadding),
-            checkPassWordLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
-            checkPassWordLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
+            passWordLabel.topAnchor.constraint(equalTo: passWordTextField.bottomAnchor),
+            passWordLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
+            passWordLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
         ])
     }
     
     func setUpCheckPassWordTextField(){
         checkPassWordTextField.translatesAutoresizingMaskIntoConstraints = false
         addSubview(checkPassWordTextField)
-        checkPassWordTextField.placeholder = "비밀번호를 입력해 주세요."
-        checkPassWordTextField.layer.cornerRadius = 8
-        checkPassWordTextField.layer.borderWidth = 1
+        checkPassWordTextField.attributedPlaceholder = NSAttributedString(string: "비밀번호 확인", attributes: [.foregroundColor: UIColor.systemGray])
+        checkPassWordTextField.layer.cornerRadius = 4
+        checkPassWordTextField.backgroundColor = .darkGray
+        checkPassWordTextField.textColor = UIColor.systemGray2
+        checkPassWordTextField.isSecureTextEntry = true
         checkPassWordTextField.addPadding()
-        checkPassWordTextField.layer.borderColor = UIColor.systemGray.cgColor
         NSLayoutConstraint.activate([
-            checkPassWordTextField.topAnchor.constraint(equalTo: checkPassWordLabel.bottomAnchor),
+            checkPassWordTextField.topAnchor.constraint(equalTo: passWordTextField.bottomAnchor, constant: .defaultPadding * 2),
             checkPassWordTextField.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
             checkPassWordTextField.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
-            checkPassWordTextField.heightAnchor.constraint(equalToConstant: 40)
+            checkPassWordTextField.heightAnchor.constraint(equalToConstant: cellHeight)
         ])
     }
     
+    func setUpCheckPassWordLabel(){
+        checkPassWordLabel.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(checkPassWordLabel)
+        checkPassWordLabel.isHidden = true
+        checkPassWordLabel.font = UIFont.systemFont(ofSize: 15)
+        NSLayoutConstraint.activate([
+            checkPassWordLabel.topAnchor.constraint(equalTo: checkPassWordTextField.bottomAnchor),
+            checkPassWordLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
+            checkPassWordLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
+        ])
+    }
     
+    func setUpSignUpButton(){
+        signUpButton.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(signUpButton)
+        signUpButton.isHidden = true
+        signUpButton.setTitle("회원가입", for: .normal)
+        signUpButton.backgroundColor = .myRedPointColor
+        signUpButton.layer.cornerRadius = 4
+        NSLayoutConstraint.activate([
+            signUpButton.topAnchor.constraint(equalTo: checkPassWordTextField.bottomAnchor, constant: .defaultPadding * 2),
+            signUpButton.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
+            signUpButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
+            signUpButton.heightAnchor.constraint(equalToConstant: cellHeight)
+        ])
+    }
     
 }
+

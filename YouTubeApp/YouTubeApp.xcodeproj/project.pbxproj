@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0825963E2AA80B9200CC6777 /* YouTubeApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0825963D2AA80B9200CC6777 /* YouTubeApiManager.swift */; };
+		082596402AA8113200CC6777 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0825963F2AA8113200CC6777 /* Secret.swift */; };
 		089E52602AA5C8E300C6F158 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089E525F2AA5C8E300C6F158 /* Extension.swift */; };
 		08FF14182AA59E5500C3DD85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF14172AA59E5500C3DD85 /* AppDelegate.swift */; };
 		08FF141A2AA59E5500C3DD85 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF14192AA59E5500C3DD85 /* SceneDelegate.swift */; };
@@ -24,7 +26,7 @@
 		08FF14412AA5A45400C3DD85 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF14402AA5A45400C3DD85 /* SignInView.swift */; };
 		08FF14432AA5A45F00C3DD85 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF14422AA5A45F00C3DD85 /* SignUpView.swift */; };
 		08FF14452AA5A46D00C3DD85 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF14442AA5A46D00C3DD85 /* MainView.swift */; };
-		08FF14472AA5A5CD00C3DD85 /* LoginDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF14462AA5A5CD00C3DD85 /* LoginDataManager.swift */; };
+		08FF14472AA5A5CD00C3DD85 /* UserDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF14462AA5A5CD00C3DD85 /* UserDataManager.swift */; };
 		C3281FF12AA630BD006F8350 /* ThumbnailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3281FF02AA630BD006F8350 /* ThumbnailCell.swift */; };
 		C399401D2AA85FE100FC3DE2 /* YouTubeAPIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C399401C2AA85FE100FC3DE2 /* YouTubeAPIResponse.swift */; };
 		C399401F2AA86C7100FC3DE2 /* YouTubeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C399401E2AA86C7100FC3DE2 /* YouTubeService.swift */; };
@@ -33,6 +35,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0825963D2AA80B9200CC6777 /* YouTubeApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeApiManager.swift; sourceTree = "<group>"; };
+		0825963F2AA8113200CC6777 /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
 		089E525F2AA5C8E300C6F158 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		08FF14142AA59E5500C3DD85 /* YouTubeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YouTubeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08FF14172AA59E5500C3DD85 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -52,7 +56,7 @@
 		08FF14402AA5A45400C3DD85 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
 		08FF14422AA5A45F00C3DD85 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		08FF14442AA5A46D00C3DD85 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		08FF14462AA5A5CD00C3DD85 /* LoginDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginDataManager.swift; sourceTree = "<group>"; };
+		08FF14462AA5A5CD00C3DD85 /* UserDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataManager.swift; sourceTree = "<group>"; };
 		C3281FF02AA630BD006F8350 /* ThumbnailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailCell.swift; sourceTree = "<group>"; };
 		C399401C2AA85FE100FC3DE2 /* YouTubeAPIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeAPIResponse.swift; sourceTree = "<group>"; };
 		C399401E2AA86C7100FC3DE2 /* YouTubeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeService.swift; sourceTree = "<group>"; };
@@ -71,6 +75,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0825963C2AA80B6800CC6777 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				08FF14462AA5A5CD00C3DD85 /* UserDataManager.swift */,
+				0825963D2AA80B9200CC6777 /* YouTubeApiManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
 		08FF140B2AA59E5500C3DD85 = {
 			isa = PBXGroup;
 			children = (
@@ -96,10 +109,13 @@
 				089E525F2AA5C8E300C6F158 /* Extension.swift */,
 				C39940222AA8CCA800FC3DE2 /* Secret.swift */,
 				C39940242AA8DEE500FC3DE2 /* Service */,
+				0825963C2AA80B6800CC6777 /* Manager */,
+
 				08FF14382AA5A23D00C3DD85 /* Models */,
 				C399401C2AA85FE100FC3DE2 /* YouTubeAPIResponse.swift */,
 				08FF14372AA5A22900C3DD85 /* Controllers */,
 				08FF14392AA5A24B00C3DD85 /* Views */,
+				0825963F2AA8113200CC6777 /* Secret.swift */,
 				08FF14202AA59E5600C3DD85 /* Assets.xcassets */,
 				08FF14222AA59E5600C3DD85 /* LaunchScreen.storyboard */,
 				08FF14252AA59E5600C3DD85 /* Info.plist */,
@@ -123,8 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				08FF143A2AA5A38600C3DD85 /* Model.swift */,
-				08FF14462AA5A5CD00C3DD85 /* LoginDataManager.swift */,
-				C39940202AA89D6A00FC3DE2 /* ThumbnailManager.swift */,
+
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -240,6 +255,8 @@
 				08FF142C2AA59EF000C3DD85 /* TabBarController.swift in Sources */,
 				C399401D2AA85FE100FC3DE2 /* YouTubeAPIResponse.swift in Sources */,
 				08FF143F2AA5A44A00C3DD85 /* DetailView.swift in Sources */,
+				0825963E2AA80B9200CC6777 /* YouTubeApiManager.swift in Sources */,
+				082596402AA8113200CC6777 /* Secret.swift in Sources */,
 				089E52602AA5C8E300C6F158 /* Extension.swift in Sources */,
 				08FF14412AA5A45400C3DD85 /* SignInView.swift in Sources */,
 				08FF14182AA59E5500C3DD85 /* AppDelegate.swift in Sources */,
@@ -247,7 +264,7 @@
 				08FF142E2AA59FBD00C3DD85 /* SignInViewController.swift in Sources */,
 				08FF143D2AA5A43200C3DD85 /* MyPageView.swift in Sources */,
 				08FF141A2AA59E5500C3DD85 /* SceneDelegate.swift in Sources */,
-				08FF14472AA5A5CD00C3DD85 /* LoginDataManager.swift in Sources */,
+				08FF14472AA5A5CD00C3DD85 /* UserDataManager.swift in Sources */,
 				08FF14342AA59FFB00C3DD85 /* MyPageViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

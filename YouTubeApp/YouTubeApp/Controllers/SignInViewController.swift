@@ -9,21 +9,116 @@ import UIKit
 
 final class SignInViewController: UIViewController {
 
+    private let signInView = SignInView()
+    private let userDataManager = UserDataManager.shared
+    private let youtubeManager = YouTubeManager()
+    
+    // MARK: - LifeCycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view = SignInView()
-        // Do any additional setup after loading the view.
+        setUp()
+        setUpData()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewWillAppear(_ animated: Bool) {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardUp), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardDown), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-    */
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    // MARK: - 키보드 대응
+
+    //KeyBoardUp,ViewUp
+    @objc func keyboardUp(notification:NSNotification) {
+        UIView.animate(withDuration: 0.3, animations: { self.signInView.transform = CGAffineTransform(translationX: 0, y: 0) })
+    }
+    //KeyBoardDown,ViewDown
+    @objc func keyboardDown() {
+        self.signInView.transform = .identity
+    }
+    //배경 터치시 키보드 내려가는 메서드
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
+         self.view.endEditing(true)
+    }
+}
+
+private extension SignInViewController{
+    
+    func setUp(){
+        userDataManager.loadData()
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .myBackGroundColor
+        self.navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        self.navigationController?.navigationBar.standardAppearance = appearance
+        
+        self.view.addSubview(signInView)
+        signInView.signUpButton.addTarget(self, action: #selector(signUpButtonTapped(_:)), for: .touchUpInside)
+        signInView.signInButton.addTarget(self, action: #selector(signInButtonTapped(_:)), for: .touchUpInside)
+        signInView.idTextField.delegate = self
+        signInView.passWordTextField.delegate = self
+    }
+    func setUpData(){
+        youtubeManager.getSearchData(keyWord: "범죄도시"){ (data) in
+            if let data = data{
+                print(data.items[0].snippet.thumbnails.thumbnailsDefault.url)
+                print("getPopularData 성공")
+            } else {
+                print("getPopularData 실패")
+            }
+        }
+    }
+    
+    // MARK: - ButtonTapped
+
+    @objc func signUpButtonTapped(_ sender: UIButton){
+        self.view.endEditing(true)
+        let vc = SignUpViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    @objc func signInButtonTapped(_ sender: UIButton){
+        self.view.endEditing(true)
+        tryLogin()
+    }
+    private func tryLogin() -> Void{
+        guard let id = signInView.idTextField.text,
+              let passWord = signInView.passWordTextField.text else { return }
+        var state = ""
+        var content = ""
+        if id.count == 0{
+            state = "로그인 실패"
+            content = "아이디를 입력해주세요"
+        } else if passWord.count == 0{
+            state = "로그인 실패"
+            content = "비밀번호를 입력해주세요."
+        } else {
+            if userDataManager.userData[id] == nil{
+                state = "로그인 실패"
+                content = "등록되지 않은 아이디 입니다"
+            } else {
+                if userDataManager.userData[id]?.passWord == passWord{
+                    let tabbar = TabBarController()
+                    (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(tabbar, animated: false)
+                    print("LogIn 성공")
+                    return
+                } else {
+                    state = "로그인 실패"
+                    content = "비밀번호를 확인해 주세요."
+                }
+            }
+        }
+        let okAction = UIAlertAction(title: "확인", style: .default) { _ in }
+        let alert = UIAlertController(title: state, message: content, preferredStyle: .alert)
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
+    }
+    
+}
+
+extension SignInViewController: UITextFieldDelegate{
 
 }

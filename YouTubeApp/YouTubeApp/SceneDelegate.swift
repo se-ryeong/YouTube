@@ -19,7 +19,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         window?.backgroundColor = .systemBackground
         //작업하는 뷰로 설정
-        window?.rootViewController = MainViewController() //SignInViewController로 바뀜 - 회원가입때무네
+
+        window?.rootViewController = UINavigationController(rootViewController: SignInViewController())
+
         window?.makeKeyAndVisible()
         
     }
@@ -44,6 +46,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     }
 
+    func changeRootVC(_ vc:UIViewController, animated: Bool) {
+        guard let window = self.window else { return }
+        window.rootViewController = vc // 전환
+        
+        UIView.transition(with: window, duration: 0.5, options: [.transitionCrossDissolve], animations: nil, completion: nil)
+      }
 
 }
 
