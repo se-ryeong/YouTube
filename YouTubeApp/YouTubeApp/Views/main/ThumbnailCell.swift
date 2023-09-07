@@ -29,7 +29,7 @@ class ThumbnailCell: UICollectionViewCell {
     }
     
     func configureCell(item: Item) {
-        guard let urlString = item.snippet?.thumbnails?.high?.url else { return }
+        let urlString = item.snippet.thumbnails.high.url
         DispatchQueue.global().async {
             guard let url = URL(string: urlString),
                   let imageData = try? Data(contentsOf: url) else { return }

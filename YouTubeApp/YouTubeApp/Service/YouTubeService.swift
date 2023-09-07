@@ -37,8 +37,8 @@ struct YouTubeService {
             }
             
             do {
-                let res = try JSONDecoder().decode(YouTubeAPIResponse.self, from: data)
-                completion(res.items ?? [])
+                let res = try JSONDecoder().decode(YoutubeData.self, from: data)
+                completion(res.items)
                 
             } catch {
                 print(error.localizedDescription)
