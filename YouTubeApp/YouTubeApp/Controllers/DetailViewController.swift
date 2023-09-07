@@ -9,6 +9,7 @@ import YouTubeiOSPlayerHelper
 
 final class DetailViewController: UIViewController {
 
+    let userDataManager = UserDataManager.shared
     private let playerView = YTPlayerView()
     private let titleLabel = UILabel()
     private let viewsLabel = UILabel()
@@ -18,7 +19,7 @@ final class DetailViewController: UIViewController {
     let channelNameLabel = UILabel()
     private let commentLabel = UILabel()
     //  private let videoCollectionView = UICollectionView()
-    var videoID = "bK6ldnjE3Y0"
+    var videoId = "bK6ldnjE3Y0"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,7 +53,7 @@ final class DetailViewController: UIViewController {
             playerView.heightAnchor.constraint(equalTo: playerView.widthAnchor, multiplier: 9.0/16.0)
         ])
         let playerVars = ["playsinline": 0]        // https://developers.google.com/youtube/player_parameters?hl=ko : playsinline - 0: 이 값을 지정하면 전체 화면으로 재생됩니다.
-        playerView.load(withVideoId: videoID, playerVars: playerVars)
+        playerView.load(withVideoId: videoId, playerVars: playerVars)
     }
     
     func setUpTitleLabel() {
@@ -175,6 +176,18 @@ final class DetailViewController: UIViewController {
     
     @objc func didTapButton() {
         print("찜하기!")
+        if userDataManager.userData[userDataManager.loginId] != nil {
+            print(userDataManager.userData[userDataManager.loginId]?.likeList)
+            if (userDataManager.userData[userDataManager.loginId]!.likeList.contains(videoId)) {
+                if let targetId = userDataManager.userData[userDataManager.loginId]!.likeList.firstIndex(of: videoId) {
+                    userDataManager.userData[userDataManager.loginId]!.likeList.remove(at: targetId)
+                } else {
+                    userDataManager.userData[userDataManager.loginId]!.likeList.append(videoId)
+                }
+            }
+            userDataManager.setData()
+            print(userDataManager.userData[userDataManager.loginId]?.likeList)
+        }
     }
 }
 
