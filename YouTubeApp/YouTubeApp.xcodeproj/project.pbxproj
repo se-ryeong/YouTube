@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0825963E2AA80B9200CC6777 /* YouTubeApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0825963D2AA80B9200CC6777 /* YouTubeApiManager.swift */; };
 		082596402AA8113200CC6777 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0825963F2AA8113200CC6777 /* Secret.swift */; };
+		086A21132AA964BB00E00BE0 /* UrlManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086A21122AA964BB00E00BE0 /* UrlManager.swift */; };
 		089E52602AA5C8E300C6F158 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089E525F2AA5C8E300C6F158 /* Extension.swift */; };
 		08FF14182AA59E5500C3DD85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF14172AA59E5500C3DD85 /* AppDelegate.swift */; };
 		08FF141A2AA59E5500C3DD85 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF14192AA59E5500C3DD85 /* SceneDelegate.swift */; };
@@ -35,6 +36,7 @@
 /* Begin PBXFileReference section */
 		0825963D2AA80B9200CC6777 /* YouTubeApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeApiManager.swift; sourceTree = "<group>"; };
 		0825963F2AA8113200CC6777 /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
+		086A21122AA964BB00E00BE0 /* UrlManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlManager.swift; sourceTree = "<group>"; };
 		089E525F2AA5C8E300C6F158 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		08FF14142AA59E5500C3DD85 /* YouTubeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YouTubeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08FF14172AA59E5500C3DD85 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 			children = (
 				08FF14462AA5A5CD00C3DD85 /* UserDataManager.swift */,
 				0825963D2AA80B9200CC6777 /* YouTubeApiManager.swift */,
+				086A21122AA964BB00E00BE0 /* UrlManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -253,6 +256,7 @@
 				08FF14182AA59E5500C3DD85 /* AppDelegate.swift in Sources */,
 				08FF14432AA5A45F00C3DD85 /* SignUpView.swift in Sources */,
 				08FF142E2AA59FBD00C3DD85 /* SignInViewController.swift in Sources */,
+				086A21132AA964BB00E00BE0 /* UrlManager.swift in Sources */,
 				08FF143D2AA5A43200C3DD85 /* MyPageView.swift in Sources */,
 				08FF141A2AA59E5500C3DD85 /* SceneDelegate.swift in Sources */,
 				08FF14472AA5A5CD00C3DD85 /* UserDataManager.swift in Sources */,
