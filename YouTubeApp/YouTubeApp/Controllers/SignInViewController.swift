@@ -32,7 +32,7 @@ final class SignInViewController: UIViewController {
 
     //KeyBoardUp,ViewUp
     @objc func keyboardUp(notification:NSNotification) {
-        UIView.animate(withDuration: 0.3, animations: { self.signInView.transform = CGAffineTransform(translationX: 0, y: 0) })
+        UIView.animate(withDuration: 0.3, animations: { self.signInView.transform = CGAffineTransform(translationX: 0, y: -60) })
     }
     //KeyBoardDown,ViewDown
     @objc func keyboardDown() {
