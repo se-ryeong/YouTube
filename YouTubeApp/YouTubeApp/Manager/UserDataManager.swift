@@ -9,7 +9,6 @@ import Foundation
 
 final class UserDataManager{
     
-    
     static let shared = UserDataManager()
     
     private let encoder = JSONEncoder()
