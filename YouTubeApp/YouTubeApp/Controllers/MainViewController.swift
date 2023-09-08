@@ -133,6 +133,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = DetailViewController()
+        vc.bind(videoItems[indexPath.row])
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
