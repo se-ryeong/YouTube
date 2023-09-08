@@ -18,6 +18,17 @@ class ThumbnailCell: UICollectionViewCell {
         return imageView
     }()
     
+    let titleLabel: UILabel = {
+        let title = UILabel()
+        title.translatesAutoresizingMaskIntoConstraints = false
+        title.text = ""
+        title.font = UIFont.systemFont(ofSize: 17)
+        title.textColor = .white
+        title.numberOfLines = 0
+        //title.backgroundColor = .red
+        return title
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -36,21 +47,30 @@ class ThumbnailCell: UICollectionViewCell {
             
             DispatchQueue.main.async {
                 self.thumbnailImageView.image = UIImage(data: imageData)
+                self.titleLabel.text = item.snippet.title //제목 설정
             }
+            print(item.snippet.title)
         }
 // 제목 UILabel만들고 아래 값 추가해주기. snipet에 영상 설명이나 시간 등 여러 타입 있어서 나타내 줄 수 있음!
 //        item.snippet?.channelTitle
     }
     
     private func setupUI() {
-        backgroundColor = .systemBlue
+        //backgroundColor = .systemBlue
         addSubview(thumbnailImageView)  //이미지 뷰를 셀에 추가
+        addSubview(titleLabel)
         
         NSLayoutConstraint.activate([
             thumbnailImageView.topAnchor.constraint(equalTo: topAnchor),
-            thumbnailImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
             thumbnailImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            thumbnailImageView.trailingAnchor.constraint(equalTo: trailingAnchor)
+            thumbnailImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            thumbnailImageView.heightAnchor.constraint(equalToConstant: 200),
+        
+            titleLabel.topAnchor.constraint(equalTo: thumbnailImageView.bottomAnchor, constant: 10),
+            titleLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
+        
     }
 }

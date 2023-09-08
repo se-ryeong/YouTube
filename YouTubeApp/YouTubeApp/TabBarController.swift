@@ -13,25 +13,34 @@ final class TabBarController: UITabBarController {
         super.viewDidLoad()
         configure()
     }
-
 }
 
 private extension TabBarController {
     func configure() {
         let newsHomeVC = UINavigationController(rootViewController: MainViewController())
         newsHomeVC.tabBarItem = UITabBarItem(
-            title: "Main",
-            image: UIImage(systemName: ""),
-            selectedImage: UIImage(systemName: "")
+            title: "Home",
+            image: UIImage(named: "Home"),
+            selectedImage: UIImage(systemName: "Home")
+            
         )
         
         let newsSearchVC = UINavigationController(rootViewController: MyPageViewController())
         newsSearchVC.tabBarItem = UITabBarItem(
-            title: "Info",
-            image: UIImage(systemName: ""),
-            selectedImage: UIImage(systemName: "")
+            title: "MyPage",
+            image: UIImage(named: "Frame"),
+            selectedImage: UIImage(systemName: "Frame")
         )
         viewControllers = [newsHomeVC, newsSearchVC]
-        tabBar.tintColor = .systemPink
+        //tabBar.tintColor = .systemPink
+        
+        TabbarApperance()
+    }
+    
+    func TabbarApperance() {
+        UITabBar.appearance().barTintColor = .black
+        UITabBar.appearance().backgroundColor = .black
+        
+        
     }
 }
