@@ -19,6 +19,7 @@ final class SignInView: UIView {
     private let cellHeight:CGFloat = 60
     public let autoLoginButton = UIButton()
     private let userDataManager = UserDataManager.shared
+    private let logoImage = UIImageView()
 
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -36,9 +37,11 @@ private extension SignInView{
     // MARK: - SetUp
     
     func setUp(){
+        //movielogo
         self.frame.size.width = UIScreen.main.bounds.size.width
         self.frame.size.height = UIScreen.main.bounds.size.height
         self.backgroundColor = .myBackGroundColor
+        setUpLogoImage()
         setUpLoginLabel()
         setUpIdTextField()
         setUpPassWordTextField()
@@ -48,6 +51,17 @@ private extension SignInView{
         setUpSignUpButton()
     }
     
+    func setUpLogoImage(){
+        logoImage.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(logoImage)
+        logoImage.image = UIImage(named: "movielo")
+        NSLayoutConstraint.activate([
+            logoImage.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor),
+            logoImage.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: .defaultPadding),
+            
+        ])
+    }
+    
     func setUpLoginLabel(){
         loginLabel.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(loginLabel)
@@ -55,7 +69,7 @@ private extension SignInView{
         loginLabel.font = UIFont.boldSystemFont(ofSize: 40)
         loginLabel.textColor = .myWhitePointColor
         NSLayoutConstraint.activate([
-            loginLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: .defaultPadding),
+            loginLabel.topAnchor.constraint(equalTo: logoImage.bottomAnchor, constant: .defaultPadding),
             loginLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: .defaultPadding),
             loginLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -.defaultPadding),
         ])
