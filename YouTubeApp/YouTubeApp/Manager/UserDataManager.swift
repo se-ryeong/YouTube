@@ -15,16 +15,23 @@ final class UserDataManager{
     
     private let decoder = JSONDecoder()
     
-    public var userData:[String:UserData] = ["1":UserData(passWord: "1", nickName: "test")]
+    public var userData:[String:UserData] = ["1":UserData(passWord: "1", nickName: "test", likeList: [])]
+    
+    public var loginId = ""
+    
+    public var autoLogin = false
     
     public func appendUser(nickName:String, id:String, passWord:String){
-        userData[id] = UserData(passWord: passWord, nickName: nickName)
+        userData[id] = UserData(passWord: passWord, nickName: nickName, likeList: [])
     }
     
     func setData(){
         if let encoded = try? encoder.encode(userData){
             UserDefaults.standard.set(encoded, forKey: "UserData")
          }
+        UserDefaults.standard.set(loginId, forKey: "LoginID")
+        UserDefaults.standard.set(autoLogin, forKey: "AutoLogin")
+        print("loginID:\(loginId)")
     }
     
     func loadData(){
@@ -33,6 +40,10 @@ final class UserDataManager{
                 self.userData = manager
             print("load 성공")
         }
+        let loginData = UserDefaults.standard.string(forKey: "LoginID") ?? ""
+        autoLogin = UserDefaults.standard.bool(forKey: "AutoLogin")
+        
+        loginId = loginData
     }
     
     private init(){
