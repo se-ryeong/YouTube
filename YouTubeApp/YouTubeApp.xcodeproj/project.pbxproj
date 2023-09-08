@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0823EC132AA969CE00BAAC4A /* YouTubeiOSPlayerHelper in Frameworks */ = {isa = PBXBuildFile; productRef = 0823EC122AA969CE00BAAC4A /* YouTubeiOSPlayerHelper */; };
-		0825963E2AA80B9200CC6777 /* YouTubeApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0825963D2AA80B9200CC6777 /* YouTubeApiManager.swift */; };
-		086A21132AA964BB00E00BE0 /* UrlManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 086A21122AA964BB00E00BE0 /* UrlManager.swift */; };
 		089E52602AA5C8E300C6F158 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089E525F2AA5C8E300C6F158 /* Extension.swift */; };
 		08FF14182AA59E5500C3DD85 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF14172AA59E5500C3DD85 /* AppDelegate.swift */; };
 		08FF141A2AA59E5500C3DD85 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF14192AA59E5500C3DD85 /* SceneDelegate.swift */; };
@@ -28,14 +26,13 @@
 		08FF14432AA5A45F00C3DD85 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF14422AA5A45F00C3DD85 /* SignUpView.swift */; };
 		08FF14452AA5A46D00C3DD85 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF14442AA5A46D00C3DD85 /* MainView.swift */; };
 		08FF14472AA5A5CD00C3DD85 /* UserDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FF14462AA5A5CD00C3DD85 /* UserDataManager.swift */; };
+		2600F04A2AA9CC4C00D9AD63 /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2600F0492AA9CC4C00D9AD63 /* Secret.swift */; };
 		C3281FF12AA630BD006F8350 /* ThumbnailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3281FF02AA630BD006F8350 /* ThumbnailCell.swift */; };
 		C399401F2AA86C7100FC3DE2 /* YouTubeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C399401E2AA86C7100FC3DE2 /* YouTubeService.swift */; };
 		F78C5E512AA96C7C004E86DB /* Secret.swift in Sources */ = {isa = PBXBuildFile; fileRef = F78C5E502AA96C7C004E86DB /* Secret.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0825963D2AA80B9200CC6777 /* YouTubeApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeApiManager.swift; sourceTree = "<group>"; };
-		086A21122AA964BB00E00BE0 /* UrlManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlManager.swift; sourceTree = "<group>"; };
 		089E525F2AA5C8E300C6F158 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		08FF14142AA59E5500C3DD85 /* YouTubeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YouTubeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08FF14172AA59E5500C3DD85 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -56,6 +53,7 @@
 		08FF14422AA5A45F00C3DD85 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		08FF14442AA5A46D00C3DD85 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		08FF14462AA5A5CD00C3DD85 /* UserDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataManager.swift; sourceTree = "<group>"; };
+		2600F0492AA9CC4C00D9AD63 /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
 		C3281FF02AA630BD006F8350 /* ThumbnailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailCell.swift; sourceTree = "<group>"; };
 		C399401E2AA86C7100FC3DE2 /* YouTubeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouTubeService.swift; sourceTree = "<group>"; };
 		F78C5E502AA96C7C004E86DB /* Secret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secret.swift; sourceTree = "<group>"; };
@@ -104,7 +102,7 @@
 				08FF142B2AA59EF000C3DD85 /* TabBarController.swift */,
 				08FF14192AA59E5500C3DD85 /* SceneDelegate.swift */,
 				089E525F2AA5C8E300C6F158 /* Extension.swift */,
-				F78C5E502AA96C7C004E86DB /* Secret.swift */,
+				2600F0492AA9CC4C00D9AD63 /* Secret.swift */,
 				C39940242AA8DEE500FC3DE2 /* Service */,
 				0825963C2AA80B6800CC6777 /* Manager */,
 				08FF14382AA5A23D00C3DD85 /* Models */,
@@ -243,7 +241,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C399401F2AA86C7100FC3DE2 /* YouTubeService.swift in Sources */,
-				F78C5E512AA96C7C004E86DB /* Secret.swift in Sources */,
+				2600F04A2AA9CC4C00D9AD63 /* Secret.swift in Sources */,
 				08FF143B2AA5A38600C3DD85 /* Model.swift in Sources */,
 				08FF14452AA5A46D00C3DD85 /* MainView.swift in Sources */,
 				C3281FF12AA630BD006F8350 /* ThumbnailCell.swift in Sources */,
