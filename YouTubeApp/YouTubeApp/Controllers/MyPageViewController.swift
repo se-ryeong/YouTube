@@ -13,6 +13,7 @@ final class MyPageViewController: UIViewController {
     
     let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
         let MyPageframe = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
         return MyPageframe
@@ -20,10 +21,13 @@ final class MyPageViewController: UIViewController {
 
         override func viewDidLoad() {
             super.viewDidLoad()
+            self.view.backgroundColor = .myBackGroundColor
+
 //            self.view = MyPageView()
             
             collectionView.dataSource = self
             collectionView.delegate = self
+            
 
             view.addSubview(collectionView)
             
@@ -31,16 +35,17 @@ final class MyPageViewController: UIViewController {
             
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
             collectionView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+//            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
             collectionView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-            
+            collectionView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+            // 32 videoLabel
             collectionView.register(MyPageView.self, forCellWithReuseIdentifier: cellID)
         }
 }
 
 extension MyPageViewController: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return 10
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

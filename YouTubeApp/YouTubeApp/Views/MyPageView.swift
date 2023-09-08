@@ -43,7 +43,7 @@ final class MyPageView: UICollectionViewCell {
         //        videoLabel.font = UIFont.boldSystemFont(ofSize: 17)
         
         NSLayoutConstraint.activate([
-            videoLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 250),
+            videoLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 25),
             videoLabel.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
             videoLabel.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
         ])
@@ -80,7 +80,7 @@ final class MyPageView: UICollectionViewCell {
         profileButton.setTitleColor(UIColor.white, for: .normal)
 
         NSLayoutConstraint.activate([
-            profileButton.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 120),
+            profileButton.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 12),
             profileButton.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
             profileButton.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
         ])
@@ -100,8 +100,8 @@ final class MyPageView: UICollectionViewCell {
             //topAnchor 위에 기준
             //bottomAnchor 아래 기준
             profileImageView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
-            profileImageView.widthAnchor.constraint(equalToConstant: 100),
-            profileImageView.heightAnchor.constraint(equalToConstant: 100)
+            profileImageView.widthAnchor.constraint(equalToConstant: 10),
+            profileImageView.heightAnchor.constraint(equalToConstant: 10)
         ])
     }
 }
