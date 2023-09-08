@@ -5,9 +5,6 @@
 // Created by SeoJunYoung on 2023/09/04.
 //
 
-// ThumbnailCell에 func configureCell(item: VideoItem)만 추가하면 재사용할 수 있을 듯
-
-
 import UIKit
 import YouTubeiOSPlayerHelper
 
@@ -73,7 +70,6 @@ final class DetailViewController: UIViewController {
         // 동작하는 스레드가 다름. API 호출하는건 비동기 스레드/ UI 업데이트는 Main 스레드에서 동작되어야 함. > 따로따로 해줘야함. 한 공간에서 하면 오래 걸림.
         
         VideoURLService().getViewCount(videoId) { [weak self] items in
-            //print(items)
             
             guard let self else { return }
             self.videoStatistics = items
@@ -131,7 +127,7 @@ final class DetailViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: playerView.bottomAnchor, constant: 20),
-            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .defaultPadding), // defaultPadding 값보다 작아도 될 듯
+            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .defaultPadding),
             titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.defaultPadding)
         ])
     }
@@ -185,7 +181,6 @@ final class DetailViewController: UIViewController {
             return "방금 전"
         }
     }
-    //유틸리티 객체..?
     
     func setUpDibsOnButton() {
         dibsOnButton.translatesAutoresizingMaskIntoConstraints = false
@@ -246,7 +241,7 @@ final class DetailViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             channelNameLabel.topAnchor.constraint(equalTo: viewCountLabel.bottomAnchor, constant: 20),
-            channelNameLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 10),
+            channelNameLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 10)
         ])
     }
     
@@ -259,19 +254,17 @@ final class DetailViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             relatedVideoLabel.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 30),
-            relatedVideoLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .defaultPadding),
+            relatedVideoLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .defaultPadding)
         ])
     }
     
     func setUpVideoCollectionView() {
-        
-        videoCollectionView.translatesAutoresizingMaskIntoConstraints = false
         videoCollectionView.dataSource = self
         videoCollectionView.delegate = self
-
-        videoCollectionView.backgroundColor = .myBackGroundColor
         videoCollectionView.register(HorizontalCollectionViewCell.self, forCellWithReuseIdentifier: HorizontalCollectionViewCell.identifier)
 
+        videoCollectionView.translatesAutoresizingMaskIntoConstraints = false
+        videoCollectionView.backgroundColor = .myBackGroundColor
         view.addSubview(videoCollectionView)
 
         NSLayoutConstraint.activate([
@@ -328,7 +321,7 @@ extension DetailViewController: UICollectionViewDataSource, UICollectionViewDele
 extension DetailViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (view.frame.width - (.defaultPadding * 2) - 10) / 3
+        let width = (view.frame.width - (.defaultPadding * 2) - 10) / 3.5
         return CGSize(width: width, height: width)
     }
 
