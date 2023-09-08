@@ -40,6 +40,7 @@ final class DetailViewController: UIViewController {
         channelNameLabel.text = item.snippet.channelTitle
         publishedDate = item.snippet.publishedAt
     }
+    
     func setUpView() {
         view.backgroundColor = .myBackGroundColor
         navigationController?.navigationBar.tintColor = .myWhitePointColor
@@ -82,6 +83,7 @@ final class DetailViewController: UIViewController {
             titleLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding)
         ])
     }
+    
     func setUpViewsLabel() {
         viewsLabel.translatesAutoresizingMaskIntoConstraints = false
         viewsLabel.text = "조회수 3천회"
@@ -94,6 +96,7 @@ final class DetailViewController: UIViewController {
             viewsLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding)
         ])
     }
+    
     func setUpUploadDateLabel() {
         uploadDateLabel.translatesAutoresizingMaskIntoConstraints = false
         uploadDateLabel.text = calculateTimeAgo(from: publishedDate)  //"3일 전"  //or 01 Sep 2023
@@ -172,6 +175,7 @@ final class DetailViewController: UIViewController {
             dibsOnButton.heightAnchor.constraint(equalToConstant: 30)
         ])
     }
+    
     func setUpProfileImageView() {
         profileImageView.translatesAutoresizingMaskIntoConstraints = false
         profileImageView.image = UIImage(systemName: "person")
@@ -189,6 +193,7 @@ final class DetailViewController: UIViewController {
             profileImageView.heightAnchor.constraint(equalToConstant: 30)
         ])
     }
+    
     func setUpChannelNameLabel() {
         channelNameLabel.translatesAutoresizingMaskIntoConstraints = false
         //channelNameLabel.text = channelName
