@@ -28,7 +28,7 @@ final class DetailViewController: UIViewController {
     
     var videoId: String = ""
     var publishedDate: String = ""
-    var viewCount: String = "156000000000"
+    var viewCount: String = "29930000"
     var categoryId: String = "1"
     
     private let videoCollectionView: UICollectionView = {
@@ -288,9 +288,9 @@ final class DetailViewController: UIViewController {
         let components = calendar.dateComponents([.minute, .hour, .day, .month, .year], from: date, to: currentTime)
         
         if let years = components.year, years > 0 {
-            return "\(years)전"
+            return "\(years)년 전"
         } else if let months = components.month, months > 0 {
-            return "\(months)달 전"
+            return "\(months)개월 전"
         } else if let days = components.day, days > 0 {
             return "\(days)일 전"
         } else if let hours = components.hour, hours > 0 {
