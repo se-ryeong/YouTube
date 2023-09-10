@@ -10,9 +10,9 @@ import Foundation
 struct YouTubeService {
 //https://youtube.googleapis.com/youtube/v3/videos
     
-    func fetchYouTubeThumbnails(completion: @escaping (_ items: [Item])->Void) {
+    func fetchYouTubeThumbnails(_ categoryId: String?, completion: @escaping (_ items: [Item])->Void) {
         let search = "official+movie+trailer" //원하는 동영상 검색어
-        let apiKey = ApiKey.ryeong.getApiKey
+        let apiKey = ApiKey.rang.getApiKey
         let baseURL = "https://www.googleapis.com/youtube/v3/search"
         
         //공용
@@ -23,10 +23,19 @@ struct YouTubeService {
         //search
         let searchQuery = URLQueryItem(name: "q", value: search)
         let maxResults = URLQueryItem(name: "maxResults", value: "20") //영상 개수
-                
-        let items: [URLQueryItem] = [partQuery,keyQuery,searchQuery,maxResults]
         
-        urlComponent?.queryItems = items
+        // 여기부터
+        let type = URLQueryItem(name: "type", value: "video")
+        let videoCategoryId = URLQueryItem(name: "videoCategoryId", value: categoryId)
+        
+        if categoryId == nil {
+            let items: [URLQueryItem] = [partQuery,keyQuery,searchQuery,maxResults]
+            urlComponent?.queryItems = items
+        } else {
+            let items: [URLQueryItem] = [partQuery,keyQuery,searchQuery,maxResults, type, videoCategoryId]
+            urlComponent?.queryItems = items
+        }
+        // 여기까지 추가, 위에 _ categoryId: String? 도 & MainViewController 64번째 줄
         
         guard let url = urlComponent?.url else { return }
         

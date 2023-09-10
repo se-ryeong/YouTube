@@ -61,7 +61,7 @@ final class MainViewController: UIViewController {
         
         navigationController?.isNavigationBarHidden = true
         
-        YouTubeService().fetchYouTubeThumbnails{ [weak self] items in
+        YouTubeService().fetchYouTubeThumbnails(nil) { [weak self] items in
             self?.videoItems = items
             
             DispatchQueue.main.async {
