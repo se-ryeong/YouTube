@@ -35,6 +35,11 @@ final class MyPageViewController: UIViewController {
 //        userDataManager.userData["1"]?.likeList.append("dOQDn3uREGs")
         setUp()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.collectionView.reloadData()
+    }
+    
     func setUp(){
         self.view.backgroundColor = .myBackGroundColor
         
@@ -151,25 +156,12 @@ extension MyPageViewController: UICollectionViewDataSource {
 extension MyPageViewController: UICollectionViewDelegateFlowLayout {
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (view.frame.width - (.defaultPadding * 2) - 20) / 3, height: (view.frame.width - 30) / 4)
+        let width = (view.frame.width - (.defaultPadding * 2) - 10) / 3.5
+        return CGSize(width: width, height: width)
     }
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 10
     }
     
 }
-// UIImageView extension 함수는 url 이미지를 표시해줌 
-extension UIImageView {
-    func loadImage(url: String) {
-        guard let url = URL(string: url) else { return }
-        DispatchQueue.global().async { [weak self] in
-            if let data = try? Data(contentsOf: url) {
-                if let image = UIImage(data: data) {
-                    DispatchQueue.main.async {
-                        self?.image = image
-                    }
-                }
-            }
-        }
-    }
-}
+
