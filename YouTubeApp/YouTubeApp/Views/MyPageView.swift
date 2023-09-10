@@ -24,8 +24,10 @@ final class MyPageView: UICollectionViewCell {
     func setUp(){
         setUpProfileImageView()
     }
-    
-  
+    // 셀에 있는 이미지에다 url 이미지를 불러와주는 함수
+    func setlikeImage(with feedElement: String) {
+        imageView.loadImage(url: feedElement)
+    }
 
     func setUpProfileImageView() {
         imageView.translatesAutoresizingMaskIntoConstraints = false

@@ -31,10 +31,10 @@ final class MyPageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // 데이터 매니저 유저데이터에 접근해서 라이크 리스트 불러옴 거기다 문자열을 추가해줌 videoId
+//        userDataManager.userData["1"]?.likeList.append("dOQDn3uREGs")
         setUp()
-        
     }
-    
     func setUp(){
         self.view.backgroundColor = .myBackGroundColor
         
@@ -113,25 +113,32 @@ final class MyPageViewController: UIViewController {
     
 
     @objc func logOutButtonTapped(_ sender: UIButton){
-        let vc = SignInViewController()
-        UserDataManager.shared.autoLogin = false
-        UserDataManager.shared.setData()
-        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(vc, animated: true)
+        let alert = UIAlertController(title: "로그아웃", message: "로그아웃 하시겠습니까?", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+        let oklAction = UIAlertAction(title: "ok", style: .destructive) { _ in  let vc = SignInViewController()
+            UserDataManager.shared.autoLogin = false
+            UserDataManager.shared.setData()
+            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(vc, animated: true)}
+        alert.addAction(cancelAction)
+        alert.addAction(oklAction)
+        present(alert, animated: true, completion: nil)
+        
     }
     
     
-
+    
     
 }
 
 extension MyPageViewController: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return (UserDataManager.shared.userData[String(UserDataManager.shared.loginId)]?.likeList.count)!
     }
-    
+
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! MyPageView
-        
+        //셀에 접근해서 setlikeImage 함수에다 url 넣어줌
+        cell.setlikeImage(with: "https://img.youtube.com/vi/\((UserDataManager.shared.userData[String(UserDataManager.shared.loginId)]?.likeList[indexPath.row])!)/0.jpg")
         return cell
     }
     
@@ -146,4 +153,19 @@ extension MyPageViewController: UICollectionViewDelegateFlowLayout {
         return 10
     }
     
+}
+// UIImageView extension 함수는 url 이미지를 표시해줌 
+extension UIImageView {
+    func loadImage(url: String) {
+        guard let url = URL(string: url) else { return }
+        DispatchQueue.global().async { [weak self] in
+            if let data = try? Data(contentsOf: url) {
+                if let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        self?.image = image
+                    }
+                }
+            }
+        }
+    }
 }
