@@ -37,6 +37,7 @@ extension UIColor{
     static let myBackGroundColor = UIColor.black
     static let myWhitePointColor = UIColor.white
     static let myRedPointColor = UIColor.systemRed
+    static let myGrayPointColor = UIColor(red: 53.0/255.0, green: 53.0/255.0, blue: 53.0/255.0, alpha: 1.0)
     
 }
 

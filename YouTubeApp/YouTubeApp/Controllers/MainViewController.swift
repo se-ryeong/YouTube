@@ -33,6 +33,17 @@ final class MainViewController: UIViewController {
         return imageView
     }()
     
+    private let searchBar: UITextField = {
+        let sb = UITextField()
+        sb.translatesAutoresizingMaskIntoConstraints = false
+        sb.backgroundColor = .myGrayPointColor
+        sb.layer.cornerRadius = 8
+        sb.attributedPlaceholder = NSAttributedString(string: "Trailer 검색", attributes: [.foregroundColor: UIColor.systemGray])
+        sb.textColor = .myWhitePointColor
+        sb.addPadding()
+        return sb
+    }()
+    
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,11 +51,12 @@ final class MainViewController: UIViewController {
         
         addSubViews()
         logolayout()
+        searchBarLayout()
         collectionViewLayout()
         collectionView.dataSource = self
         collectionView.delegate = self
         
-        YouTubeService().fetchYouTubeThumbnails(nil) { [weak self] items in
+        YouTubeService().fetchYouTubeThumbnails(searchKeyWord: nil, nil) { [weak self] items in
             self?.videoItems = items
             
             DispatchQueue.main.async {
@@ -62,13 +74,18 @@ final class MainViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
     }
+    //배경 터치시 키보드 내려가는 메서드
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
+         self.view.endEditing(true)
+    }
 }
 
 private extension MainViewController{
     //순서: addSubViews(레이아웃이 겹치는 경우 순서 중요) 먼저 해주고, 오토레이아웃 지정해주기
     func addSubViews() {
-        view.addSubview(collectionView)
         view.addSubview(logoImageView)
+        view.addSubview(searchBar)
+        view.addSubview(collectionView)
     }
     
     func logolayout() {
@@ -78,11 +95,22 @@ private extension MainViewController{
         ])
     }
     
+    func searchBarLayout() {
+        searchBar.delegate = self
+        NSLayoutConstraint.activate([
+            searchBar.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: .defaultPadding),
+            searchBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: .defaultPadding),
+            searchBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -.defaultPadding),
+            searchBar.heightAnchor.constraint(equalToConstant: 36)
+
+        ])
+    }
+    
     func collectionViewLayout() {
         NSLayoutConstraint.activate([
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 10),
+            collectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: .defaultPadding),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
@@ -138,5 +166,20 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 20.0  //셀 간 간격
+    }
+}
+
+extension MainViewController: UITextFieldDelegate{
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        guard let text = textField.text else { return true }
+        YouTubeService().fetchYouTubeThumbnails(searchKeyWord: text, nil) { [weak self] items in
+            self?.videoItems = items
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
+        }
+        self.view.endEditing(true)
+        return true
     }
 }
