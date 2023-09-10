@@ -125,7 +125,7 @@ final class DetailViewController: UIViewController {
         
         let myId = userDataManager.loginId
         if userDataManager.userData[myId] != nil {
-            if userDataManager.userData[myId]!.likeList.contains(where: { item in item.id == videoId } ) {
+            if userDataManager.userData[myId]!.likeList.contains(videoId) {
                 setButtonOn()
             } else {
                 setButtonOff()
@@ -319,15 +319,14 @@ final class DetailViewController: UIViewController {
         
         let myId = userDataManager.loginId
         if userDataManager.userData[myId] != nil {
-            if userDataManager.userData[myId]!.likeList.contains(where: { $0.id == videoId }) {
-                if let targetIndex = userDataManager.userData[myId]!.likeList.firstIndex(where: { $0.id == videoId }) { // 배열 중에, 배열의 id가 videoId와 일치하는게 있다면 그 index를 targerIndex로 두기
+            if userDataManager.userData[myId]!.likeList.contains(videoId){
+                if let targetIndex = userDataManager.userData[myId]!.likeList.firstIndex(of: videoId){
                     userDataManager.userData[myId]!.likeList.remove(at: targetIndex)
                     setButtonOff()
                     print("찜삭제!")
                 }
             } else {
-                guard let videoItem = videoInfo.first else { return }
-                userDataManager.userData[myId]!.likeList.append(videoItem)    // id = videoID 인 [videoItem] 를 추가
+                userDataManager.userData[myId]!.likeList.append(videoId)
                 setButtonOn()
                 print("찜하기!")
             }

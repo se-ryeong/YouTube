@@ -10,7 +10,7 @@ import Foundation
 struct UserData: Codable{
     var passWord: String
     var nickName: String
-    var likeList: [Item]
+    var likeList: [String]
 }
 
 struct YoutubeData: Codable {
