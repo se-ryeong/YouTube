@@ -138,7 +138,11 @@ extension MyPageViewController: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! MyPageView
         //셀에 접근해서 setlikeImage 함수에다 url 넣어줌
-        cell.setlikeImage(with: "https://img.youtube.com/vi/\((UserDataManager.shared.userData[String(UserDataManager.shared.loginId)]?.likeList[indexPath.row])!)/0.jpg")
+        let myId = UserDataManager.shared.loginId
+        if UserDataManager.shared.userData[myId] != nil {
+            cell.setlikeImage(with: "https://img.youtube.com/vi/\((UserDataManager.shared.userData[myId]!.likeList[indexPath.row]))/0.jpg")
+        }
+        
         return cell
     }
     
