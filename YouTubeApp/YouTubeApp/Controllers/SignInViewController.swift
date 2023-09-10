@@ -67,8 +67,6 @@ private extension SignInViewController{
         signInView.signUpButton.addTarget(self, action: #selector(signUpButtonTapped(_:)), for: .touchUpInside)
         signInView.signInButton.addTarget(self, action: #selector(signInButtonTapped(_:)), for: .touchUpInside)
         signInView.autoLoginButton.addTarget(self, action: #selector(autoLoginButtonTapped(_:)), for: .touchUpInside)
-        signInView.idTextField.delegate = self
-        signInView.passWordTextField.delegate = self
     }
     
     // MARK: - ButtonTapped
@@ -78,10 +76,12 @@ private extension SignInViewController{
         let vc = SignUpViewController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
     @objc func signInButtonTapped(_ sender: UIButton){
         self.view.endEditing(true)
         tryLogin()
     }
+    
     @objc func autoLoginButtonTapped(_ sender: UIButton){
         self.view.endEditing(true)
         userDataManager.autoLogin.toggle()
@@ -91,6 +91,7 @@ private extension SignInViewController{
             signInView.autoLoginButton.setImage(UIImage(systemName: "square.fill"), for: .normal)
         }
     }
+    
     private func tryLogin() -> Void{
         guard let id = signInView.idTextField.text,
               let passWord = signInView.passWordTextField.text else { return }
@@ -126,8 +127,4 @@ private extension SignInViewController{
         present(alert, animated: true, completion: nil)
     }
     
-}
-
-extension SignInViewController: UITextFieldDelegate{
-
 }
