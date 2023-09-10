@@ -54,6 +54,18 @@ class ThumbnailCell: UICollectionViewCell {
 // 제목 UILabel만들고 아래 값 추가해주기. snipet에 영상 설명이나 시간 등 여러 타입 있어서 나타내 줄 수 있음!
 //        item.snippet?.channelTitle
     }
+    func bind(videoID: String) {
+        VideoURLService().getVideoInfo(videoID) { [weak self] items in
+            guard let self = self else { return }
+            print(items)
+            DispatchQueue.main.async {
+                self.titleLabel.text = items.first!.snippet.title
+                self.thumbnailImageView.loadImage(url: items.first!.snippet.thumbnails.high.url)
+            }
+        }
+    }
+
+
     
     private func setupUI() {
         //backgroundColor = .systemBlue

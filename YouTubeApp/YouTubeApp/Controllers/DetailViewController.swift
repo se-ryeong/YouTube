@@ -56,6 +56,17 @@ final class DetailViewController: UIViewController {
         self.tabBarController?.tabBar.isHidden = false
     }
     
+    // MARK: - Bind
+    
+    func bind(_ item: Item){
+        videoId = item.id.videoID
+        publishedDate = item.snippet.publishedAt
+    } // publishedAt은 바뀌지 않으니까 DetailView에서 새로 요청할 필요없이 MainView에서 받아오면 될 듯
+    
+    func videoBind(videoId: String, item: VideoItem){
+        self.videoId = videoId
+    }
+    
 }
 
 private extension DetailViewController{
@@ -218,10 +229,7 @@ private extension DetailViewController{
     
     // MARK: - Helpers
     
-    public func bind(_ item: Item){
-        videoId = item.id.videoID
-        publishedDate = item.snippet.publishedAt
-    } // publishedAt은 바뀌지 않으니까 DetailView에서 새로 요청할 필요없이 MainView에서 받아오면 될 듯
+
     
     func getData() {
         VideoURLService().getVideoInfo(videoId) { [weak self] items in
@@ -237,7 +245,7 @@ private extension DetailViewController{
             self.categoryId = self.videoInfo.first?.snippet.categoryId ?? ""
             print(self.categoryId)
             
-            YouTubeService().fetchYouTubeThumbnails(categoryId) { [weak self] items in
+            YouTubeService().fetchYouTubeThumbnails(searchKeyWord: nil, categoryId) { [weak self] items in
                 //print(items)
                 guard let self else { return }
                 self.categoryItems = items
@@ -317,7 +325,7 @@ private extension DetailViewController{
     func setButtonOff() {
         dibsOnButton.setImage(UIImage(systemName: "plus.square"), for: .normal)
         dibsOnButton.setTitle("찜하기", for: .normal)
-        dibsOnButton.backgroundColor = UIColor(red: 53.0/255.0, green: 53.0/255.0, blue: 53.0/255.0, alpha: 1.0)
+        dibsOnButton.backgroundColor = .myGrayPointColor
     }
     
     func setButtonOn() {
@@ -359,6 +367,7 @@ extension DetailViewController: UICollectionViewDataSource, UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = DetailViewController()
+        vc.bind(categoryItems[indexPath.row])
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }

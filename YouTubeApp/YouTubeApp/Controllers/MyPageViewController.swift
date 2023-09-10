@@ -11,7 +11,7 @@ final class MyPageViewController: UIViewController {
     
     private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
+        layout.scrollDirection = .vertical
         let MyPageframe = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
         return MyPageframe
@@ -25,6 +25,8 @@ final class MyPageViewController: UIViewController {
     
     private let profilEditButton = UIButton()
     
+    private let infoLabel = UILabel()
+    
     private let userDataManager = UserDataManager.shared
     
     lazy var myId = userDataManager.loginId
@@ -37,6 +39,7 @@ final class MyPageViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        self.setUpCollectionView()
         self.collectionView.reloadData()
     }
 }
@@ -54,7 +57,7 @@ private extension MyPageViewController{
         setUpCollectionView()
 
     }
-    
+
     func setUpIdLabel(){
         view.addSubview(nickNameLabel)
         nickNameLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -82,9 +85,9 @@ private extension MyPageViewController{
         view.addSubview(profilEditButton)
         profilEditButton.translatesAutoresizingMaskIntoConstraints = false
         profilEditButton.setTitle("닉네임 수정", for: .normal)
-        profilEditButton.backgroundColor = .darkGray
+        profilEditButton.backgroundColor = .myGrayPointColor
         profilEditButton.addTarget(self, action: #selector(didTapEditButton), for: .touchUpInside)
-        profilEditButton.layer.cornerRadius = 4
+        profilEditButton.layer.cornerRadius = 8
         NSLayoutConstraint.activate([
             profilEditButton.topAnchor.constraint(equalTo: nickNameLabel.bottomAnchor, constant: .defaultPadding),
             profilEditButton.leadingAnchor.constraint(equalTo: nickNameLabel.leadingAnchor),
@@ -106,18 +109,39 @@ private extension MyPageViewController{
     }
     
     func setUpCollectionView(){
+        if userDataManager.userData[myId]?.likeList.count == 0{
+            collectionView.isHidden = true
+        } else {
+            collectionView.isHidden = false
+        }
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = .myBackGroundColor
         view.addSubview(collectionView)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: likeListLabel.bottomAnchor),
+            collectionView.topAnchor.constraint(equalTo: likeListLabel.bottomAnchor, constant: .defaultPadding),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .defaultPadding),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.defaultPadding),
-            collectionView.heightAnchor.constraint(equalToConstant: 100)
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
-        collectionView.register(MyPageCVCell.self, forCellWithReuseIdentifier: MyPageCVCell.identifier)
+        collectionView.register(ThumbnailCell.self, forCellWithReuseIdentifier: ThumbnailCell.identifier)
+        
+        view.addSubview(infoLabel)
+        infoLabel.text = "찜한 동영상이 없습니다."
+        infoLabel.font = UIFont.boldSystemFont(ofSize: 17)
+        infoLabel.textColor = .myWhitePointColor
+        if userDataManager.userData[myId]?.likeList.count == 0{
+            infoLabel.isHidden = false
+        } else {
+            infoLabel.isHidden = true
+        }
+        infoLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            infoLabel.topAnchor.constraint(equalTo: likeListLabel.bottomAnchor, constant: .defaultPadding),
+            infoLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .defaultPadding),
+            infoLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.defaultPadding),
+        ])
     }
 
     // MARK: - ButtonTapped
@@ -156,18 +180,34 @@ private extension MyPageViewController{
 }
 
 extension MyPageViewController: UICollectionViewDataSource {
-    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return (UserDataManager.shared.userData[String(UserDataManager.shared.loginId)]?.likeList.count)!
     }
 
-    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyPageCVCell.identifier, for: indexPath) as! MyPageCVCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ThumbnailCell.identifier, for: indexPath) as! ThumbnailCell
         //셀에 접근해서 setlikeImage 함수에다 url 넣어줌
         if userDataManager.userData[myId] != nil {
-            cell.setlikeImage(with: "https://img.youtube.com/vi/\((UserDataManager.shared.userData[myId]!.likeList[indexPath.row]))/0.jpg")
+//            cell.setlikeImage(with: "https://img.youtube.com/vi/\((UserDataManager.shared.userData[myId]!.likeList[indexPath.row]))/0.jpg")
+            cell.bind(videoID: userDataManager.userData[myId]!.likeList[indexPath.row])
         }
-        
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = DetailViewController()
+        guard let userData = userDataManager.userData[myId] else {return}
+        
+        VideoURLService().getVideoInfo(userData.likeList[indexPath.row]) { [weak self] items in
+            guard let self = self else { return }
+            if let item = items.first{
+                let videoId = userData.likeList[indexPath.row]
+                vc.videoBind(videoId: videoId, item: item)
+                DispatchQueue.main.async {
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            }
+        }
     }
     
 }
@@ -175,8 +215,10 @@ extension MyPageViewController: UICollectionViewDataSource {
 extension MyPageViewController: UICollectionViewDelegateFlowLayout {
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (view.frame.width - (.defaultPadding * 2) - 10) / 3.5
-        return CGSize(width: width, height: width)
+        let cellWidth = collectionView.bounds.width
+        let cellHeight: CGFloat = 260
+        
+        return CGSize(width: cellWidth, height: cellHeight)
     }
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 10
