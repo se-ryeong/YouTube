@@ -28,8 +28,8 @@ final class DetailViewController: UIViewController {
     
     var videoId: String = ""
     var publishedDate: String = ""
-    var viewCount: String = "29930000"
-    var categoryId: String = "1"
+    var viewCount: String = ""
+    var categoryId: String = ""
     
     private let videoCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -96,7 +96,6 @@ final class DetailViewController: UIViewController {
     
     func setUpViewCountLabel() {
         viewCountLabel.translatesAutoresizingMaskIntoConstraints = false
-        viewCountLabel.text = "조회수 \(calculateViewCount())회"
         viewCountLabel.font = viewCountLabel.font.withSize(12)
         viewCountLabel.textColor = .systemGray6
         view.addSubview(viewCountLabel)
@@ -218,36 +217,41 @@ final class DetailViewController: UIViewController {
     
     private func getData() {
         VideoURLService().getVideoInfo(videoId) { [weak self] items in
-            //print(items)
+            print(items)
             guard let self else { return }
             self.videoInfo = items
             
             DispatchQueue.main.async {
                 self.titleLabel.text = self.videoInfo.first?.snippet.title
                 self.channelNameLabel.text = self.videoInfo.first?.snippet.channelTitle
-                //self.categoryId = self.videoSnippet.first?.snippet.categoryId ?? ""
                 // categoryId을 옵셔널로 선언해주지 않았더라도 first? > 라고 하는 순간 categoryId도 옵셔널값이 될 수 있으므로 ?? "" 필요함
             }
-        }
-        // 동작하는 스레드가 다름. API 호출하는건 비동기 스레드/ UI 업데이트는 Main 스레드에서 동작되어야 함. > 따로따로 해줘야함. 한 공간에서 하면 오래 걸림.
-        
-        VideoURLService().getViewCount(videoId) { [weak self] items in
+            self.categoryId = self.videoInfo.first?.snippet.categoryId ?? ""
+            print(self.categoryId)
             
-            guard let self else { return }
-            self.videoStatistics = items
-            
-            DispatchQueue.main.async {
-                //self.viewCount = self.videoStatistics.first?.statistics.viewCount ?? ""
+            YouTubeService().fetchYouTubeThumbnails(categoryId) { [weak self] items in
+                //print(items)
+                guard let self else { return }
+                self.categoryItems = items
+                
+                DispatchQueue.main.async {
+                    self.videoCollectionView.reloadData()
+                }
+                
             }
-        }
-        
-        YouTubeService().fetchYouTubeThumbnails(categoryId) { [weak self] items in
-            //print(items)
-            guard let self else { return }
-            self.categoryItems = items
             
-            DispatchQueue.main.async {
-                self.videoCollectionView.reloadData()
+            VideoURLService().getViewCount(videoId) { [weak self] items in
+                
+                guard let self else { return }
+                self.videoStatistics = items
+                self.viewCount = self.videoStatistics.first?.statistics.viewCount ?? ""
+                
+                DispatchQueue.main.async { [weak self] in
+                    guard let self else { return }
+                    self.viewCountLabel.text = "조회수 \(self.calculateViewCount())회"
+                }
+
+                // 동작하는 스레드가 다름. API 호출하는건 비동기 스레드/ UI 업데이트는 Main 스레드에서 동작되어야 함. > 따로따로 해줘야함. 한 공간에서 하면 오래 걸림.
             }
         }
     }

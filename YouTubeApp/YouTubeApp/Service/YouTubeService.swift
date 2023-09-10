@@ -12,7 +12,7 @@ struct YouTubeService {
     
     func fetchYouTubeThumbnails(_ categoryId: String?, completion: @escaping (_ items: [Item])->Void) {
         let search = "official+movie+trailer" //원하는 동영상 검색어
-        let apiKey = ApiKey.rang.getApiKey
+        let apiKey = ApiKey.seo.getApiKey
         let baseURL = "https://www.googleapis.com/youtube/v3/search"
         
         //공용
