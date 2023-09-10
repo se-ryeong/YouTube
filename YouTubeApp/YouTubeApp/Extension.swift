@@ -39,3 +39,19 @@ extension UIColor{
     static let myRedPointColor = UIColor.systemRed
     
 }
+
+// UIImageView extension 함수는 url 이미지를 표시해줌
+extension UIImageView {
+    func loadImage(url: String) {
+        guard let url = URL(string: url) else { return }
+        DispatchQueue.global().async { [weak self] in
+            if let data = try? Data(contentsOf: url) {
+                if let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        self?.image = image
+                    }
+                }
+            }
+        }
+    }
+}
