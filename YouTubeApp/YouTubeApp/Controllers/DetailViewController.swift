@@ -14,6 +14,8 @@ final class DetailViewController: UIViewController {
     
     let userDataManager = UserDataManager.shared
     
+    lazy var myId = userDataManager.loginId
+    
     var videoInfo: [VideoItem] = []
     var categoryItems: [Item] = []
     var videoStatistics: [StatisticsItem] = []
@@ -122,7 +124,6 @@ final class DetailViewController: UIViewController {
     func setUpDibsOnButton() {
         dibsOnButton.translatesAutoresizingMaskIntoConstraints = false
         
-        let myId = userDataManager.loginId
         if userDataManager.userData[myId] != nil {
             if userDataManager.userData[myId]!.likeList.contains(videoId) {
                 setButtonOn()
@@ -321,7 +322,6 @@ final class DetailViewController: UIViewController {
     @objc func didTapButton() {
         // https://i.ytimg.com/vi/0VH9WCFV6XQ/hqdefault.jpg > thumbnail url: videoId로 만들어짐
         
-        let myId = userDataManager.loginId
         if userDataManager.userData[myId] != nil {
             if userDataManager.userData[myId]!.likeList.contains(videoId){
                 if let targetIndex = userDataManager.userData[myId]!.likeList.firstIndex(of: videoId){
