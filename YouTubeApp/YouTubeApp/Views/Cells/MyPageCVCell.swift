@@ -7,7 +7,9 @@
 
 import UIKit
 
-final class MyPageView: UICollectionViewCell {
+final class MyPageCVCell: UICollectionViewCell {
+    
+    static let identifier = "MyCell"
     
     public let imageView = UIImageView()
     
@@ -31,11 +33,9 @@ final class MyPageView: UICollectionViewCell {
 
     func setUpProfileImageView() {
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(systemName: "photo")
-        imageView.backgroundColor = .green
-        imageView.tintColor = .white
+        imageView.image = UIImage(systemName: "icloud.square")
+        imageView.tintColor = .myRedPointColor
         imageView.contentMode = .scaleAspectFill
-        
         imageView.clipsToBounds = true
         addSubview(imageView)
         

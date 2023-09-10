@@ -30,21 +30,19 @@ class HorizontalCollectionViewCell: UICollectionViewCell {
             guard let url = URL(string: urlString),
                   let imageData = try? Data(contentsOf: url) else { return }
             
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else {return}
                 self.thumbnailImageView.image = UIImage(data: imageData)
                 self.titleLabel.text = item.snippet.title
             }
         }
-// 제목 UILabel만들고 아래 값 추가해주기. snipet에 영상 설명이나 시간 등 여러 타입 있어서 나타내 줄 수 있음!
-//        item.snippet?.channelTitle
     }
     
     private func setUpView() {
         thumbnailImageView.translatesAutoresizingMaskIntoConstraints = false
-        thumbnailImageView.contentMode = .scaleAspectFill
-        thumbnailImageView.image = UIImage(systemName: "photo")
-        thumbnailImageView.backgroundColor = .myRedPointColor
-        thumbnailImageView.tintColor = .white
+        thumbnailImageView.contentMode = .scaleAspectFit
+        thumbnailImageView.image = UIImage(systemName: "icloud.square")
+        thumbnailImageView.tintColor = .myRedPointColor
         thumbnailImageView.clipsToBounds = true
         addSubview(thumbnailImageView)
         

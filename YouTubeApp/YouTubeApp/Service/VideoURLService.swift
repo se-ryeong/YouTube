@@ -20,7 +20,7 @@ struct VideoURLService {
         
         guard let url = components?.url else { return }
         
-        print(url.absoluteString)
+//        print(url.absoluteString)
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             guard let data = data, error == nil else {
                 print("Error fetching YouTube data")
@@ -28,7 +28,7 @@ struct VideoURLService {
             }
             
             if let responseString = String(data: data, encoding: .utf8) {
-                print("API Response: \(responseString)")
+//                print("API Response: \(responseString)")
             }
             
             do {
@@ -55,7 +55,7 @@ struct VideoURLService {
         
         guard let url = urlComponent?.url else { return }
         
-        print(url.absoluteString)
+//        print(url.absoluteString)
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             guard let data = data, error == nil else {
                 print("Error fetching YouTube data")
@@ -63,7 +63,7 @@ struct VideoURLService {
             }
             
             if let responseString = String(data: data, encoding: .utf8) {
-                print("API Response: \(responseString)")
+//                print("API Response: \(responseString)")
             }
             
             do {

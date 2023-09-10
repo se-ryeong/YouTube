@@ -8,7 +8,6 @@
 import Foundation
 
 struct YouTubeService {
-//https://youtube.googleapis.com/youtube/v3/videos
     
     func fetchYouTubeThumbnails(_ categoryId: String?, completion: @escaping (_ items: [Item])->Void) {
         let search = "official+movie+trailer" //원하는 동영상 검색어
@@ -22,9 +21,8 @@ struct YouTubeService {
 
         //search
         let searchQuery = URLQueryItem(name: "q", value: search)
-        let maxResults = URLQueryItem(name: "maxResults", value: "20") //영상 개수
+        let maxResults = URLQueryItem(name: "maxResults", value: "1") //영상 개수
         
-        // 여기부터
         let type = URLQueryItem(name: "type", value: "video")
         let videoCategoryId = URLQueryItem(name: "videoCategoryId", value: categoryId)
         
@@ -35,11 +33,9 @@ struct YouTubeService {
             let items: [URLQueryItem] = [partQuery,keyQuery,searchQuery,maxResults, type, videoCategoryId]
             urlComponent?.queryItems = items
         }
-        // 여기까지 추가, 위에 _ categoryId: String? 도 & MainViewController 64번째 줄
         
         guard let url = urlComponent?.url else { return }
         
-        print(url.absoluteString)
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             guard let data = data, error == nil else {
                 print("Error fetching YouTube data")
@@ -47,8 +43,7 @@ struct YouTubeService {
             }
             
             if let responseString = String(data: data, encoding: .utf8) {
-                print("API Response: \(responseString)")
-                
+//                print("API Response: \(responseString)")
             }
             
             do {

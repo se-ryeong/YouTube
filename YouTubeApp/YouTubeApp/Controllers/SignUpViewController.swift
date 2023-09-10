@@ -23,10 +23,12 @@ final class SignUpViewController: UIViewController {
         super.viewDidLoad()
         setUp()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardUp), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardDown), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
+    
     // MARK: - 키보드 대응
 
     //KeyBoardUp,ViewUp
@@ -38,8 +40,6 @@ final class SignUpViewController: UIViewController {
             let yValue = CGFloat((56 + (92)))
             UIView.animate(withDuration: 0.3, animations: { self.signUpView.transform = CGAffineTransform( translationX: 0, y: -yValue)})
         }
-        
-        
     }
     //KeyBoardDown,ViewDown
     @objc func keyboardDown() {
@@ -54,7 +54,6 @@ private extension SignUpViewController{
     
     func setUp(){
         self.view.addSubview(signUpView)
-//        navigationController?.navigationBar.tintColor = .myRedPointColor
         navigationController?.navigationBar.tintColor = .myWhitePointColor
         signUpView.nickNameTextField.delegate = self
         signUpView.idTextField.delegate = self
@@ -62,6 +61,7 @@ private extension SignUpViewController{
         signUpView.checkPassWordTextField.delegate = self
         signUpView.signUpButton.addTarget(self, action: #selector(signUpButtonTapped(_:)), for: .touchUpInside)
     }
+    
     @objc func signUpButtonTapped(_ sender: UIButton){
         self.view.endEditing(true)
         guard let nickName = signUpView.nickNameTextField.text,
@@ -77,7 +77,8 @@ private extension SignUpViewController{
         present(alert, animated: true, completion: nil)
         
     }
-    private func buttonHiddenMotion(toggle:Bool){
+    
+    func buttonHiddenMotion(toggle:Bool){
         UIView.transition(with: signUpView.signUpButton, duration: 0.5, options: .transitionFlipFromTop, animations: { [weak self] in
             if toggle{
                 self?.signUpView.signUpButton.alpha = 0

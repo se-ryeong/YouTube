@@ -12,46 +12,53 @@ final class DetailViewController: UIViewController {
     
     // MARK: - Properties
     
-    let userDataManager = UserDataManager.shared
+    private let userDataManager = UserDataManager.shared
     
     lazy var myId = userDataManager.loginId
     
-    var videoInfo: [VideoItem] = []
-    var categoryItems: [Item] = []
-    var videoStatistics: [StatisticsItem] = []
+    private var videoInfo: [VideoItem] = []
+    private var categoryItems: [Item] = []
+    private var videoStatistics: [StatisticsItem] = []
     private let playerView = YTPlayerView()
     private let titleLabel = UILabel()
     private let viewCountLabel = UILabel()
     private let publishedDateLabel = UILabel()
     private let dibsOnButton = UIButton()
-    let profileImageView = UIImageView()
+    private let profileImageView = UIImageView()
     private let channelNameLabel = UILabel()
     private let relatedVideoLabel = UILabel()
-    
-    var videoId: String = ""
-    var publishedDate: String = ""
-    var viewCount: String = ""
-    var categoryId: String = ""
-    
     private let videoCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let view = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
         return view
-    }()                     // UICollectionView must be initialized with a non-nil layout parameter > nil이 아닌 layout 파라미터로 초기화 해줘야댐 무조건
+    }()
+    
+    private var videoId: String = ""
+    private var publishedDate: String = ""
+    private var viewCount: String = ""
+    private var categoryId: String = ""
     
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(viewCount)
         getData()
         setUpView()
-        print(viewCount)
-        print("\(categoryItems.count)")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = false
+    }
+    
+}
+
+private extension DetailViewController{
     // MARK: - UI
     
     func setUpView() {
@@ -71,14 +78,14 @@ final class DetailViewController: UIViewController {
     func setUpPlayerView() {
         playerView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(playerView)
-        
+
         NSLayoutConstraint.activate([
             playerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             playerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             playerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             playerView.heightAnchor.constraint(equalTo: playerView.widthAnchor, multiplier: 9.0/16.0)
         ])
-        let playerVars = ["playsinline": 0]        // https://developers.google.com/youtube/player_parameters?hl=ko : playsinline - 0: 이 값을 지정하면 전체 화면으로 재생됩니다.
+        let playerVars = ["playsinline": 0]
         playerView.load(withVideoId: videoId, playerVars: playerVars)
     }
     
@@ -211,12 +218,12 @@ final class DetailViewController: UIViewController {
     
     // MARK: - Helpers
     
-    func bind(_ item: Item){
+    public func bind(_ item: Item){
         videoId = item.id.videoID
         publishedDate = item.snippet.publishedAt
     } // publishedAt은 바뀌지 않으니까 DetailView에서 새로 요청할 필요없이 MainView에서 받아오면 될 듯
     
-    private func getData() {
+    func getData() {
         VideoURLService().getVideoInfo(videoId) { [weak self] items in
             print(items)
             guard let self else { return }
@@ -257,7 +264,7 @@ final class DetailViewController: UIViewController {
         }
     }
     
-    private func calculateViewCount() -> String {
+    func calculateViewCount() -> String {
         guard let doubleViewCount = Double(viewCount) else { return "" }
         
         switch doubleViewCount {
@@ -283,7 +290,7 @@ final class DetailViewController: UIViewController {
         }
     }
     
-    private func calculateTimeAgo(from dateString: String) -> String {
+    func calculateTimeAgo(from dateString: String) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
         let date = dateFormatter.date(from: dateString) ?? Date()
@@ -307,20 +314,19 @@ final class DetailViewController: UIViewController {
         }
     }
     
-    private func setButtonOff() {
+    func setButtonOff() {
         dibsOnButton.setImage(UIImage(systemName: "plus.square"), for: .normal)
         dibsOnButton.setTitle("찜하기", for: .normal)
         dibsOnButton.backgroundColor = UIColor(red: 53.0/255.0, green: 53.0/255.0, blue: 53.0/255.0, alpha: 1.0)
     }
     
-    private func setButtonOn() {
+    func setButtonOn() {
         dibsOnButton.setImage(UIImage(systemName: "checkmark.square.fill"), for: .normal)
         dibsOnButton.setTitle("찜완료", for: .normal)
         dibsOnButton.backgroundColor = .myRedPointColor
     }
     
     @objc func didTapButton() {
-        // https://i.ytimg.com/vi/0VH9WCFV6XQ/hqdefault.jpg > thumbnail url: videoId로 만들어짐
         
         if userDataManager.userData[myId] != nil {
             if userDataManager.userData[myId]!.likeList.contains(videoId){
@@ -336,11 +342,8 @@ final class DetailViewController: UIViewController {
             }
         }
         userDataManager.setData()
-        print("likeList: \(userDataManager.userData[myId]!.likeList)")
     }
 }
-
-// MARK: - Extension
 
 extension DetailViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -356,7 +359,6 @@ extension DetailViewController: UICollectionViewDataSource, UICollectionViewDele
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let vc = DetailViewController()
-        //vc.bind(categoryItems[indexPath.row])
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }

@@ -7,11 +7,9 @@
 
 import UIKit
 
-let cellID = "Cell"
-
 final class MyPageViewController: UIViewController {
     
-    let collectionView: UICollectionView = {
+    private let collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let MyPageframe = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -19,34 +17,36 @@ final class MyPageViewController: UIViewController {
         return MyPageframe
     }()
     
-    let nickNameLabel = UILabel()
+    private let nickNameLabel = UILabel()
     
-    let likeListLabel = UILabel()
+    private let likeListLabel = UILabel()
     
-    let logOutButton = UIButton()
+    private let logOutButton = UIButton()
     
-    let profilEditButton = UIButton()
+    private let profilEditButton = UIButton()
     
-    let userDataManager = UserDataManager.shared
+    private let userDataManager = UserDataManager.shared
     
     lazy var myId = userDataManager.loginId
     
-    //Cannot use instance member 'userDataManager' within property initializer; property initializers run before 'self' is available
-    
+    // MARK: - LifeCycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // 데이터 매니저 유저데이터에 접근해서 라이크 리스트 불러옴 거기다 문자열을 추가해줌 videoId
-//        userDataManager.userData["1"]?.likeList.append("dOQDn3uREGs")
         setUp()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.collectionView.reloadData()
     }
+}
+
+private extension MyPageViewController{
     
+    // MARK: - SetUp
+
     func setUp(){
         self.view.backgroundColor = .myBackGroundColor
-        
         setUpIdLabel()
         setUpProfileEditButton()
         setUpLogOutButton()
@@ -117,11 +117,10 @@ final class MyPageViewController: UIViewController {
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.defaultPadding),
             collectionView.heightAnchor.constraint(equalToConstant: 100)
         ])
-        collectionView.register(MyPageView.self, forCellWithReuseIdentifier: cellID)
+        collectionView.register(MyPageCVCell.self, forCellWithReuseIdentifier: MyPageCVCell.identifier)
     }
-    
 
-    
+    // MARK: - ButtonTapped
 
     @objc func logOutButtonTapped(_ sender: UIButton){
         let alert = UIAlertController(title: "로그아웃", message: "로그아웃 하시겠습니까?", preferredStyle: .alert)
@@ -146,7 +145,6 @@ final class MyPageViewController: UIViewController {
                 self.userDataManager.setData()
                 self.nickNameLabel.text = "안녕하세요 \(newNickName) 님"
             }
-            print(newNickName)
         }
         alert.addAction(cancelAction)
         alert.addAction(okAction)
@@ -155,8 +153,6 @@ final class MyPageViewController: UIViewController {
         }
         present(alert, animated: true, completion: nil)
     }
-    
-    
 }
 
 extension MyPageViewController: UICollectionViewDataSource {
@@ -165,7 +161,7 @@ extension MyPageViewController: UICollectionViewDataSource {
     }
 
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! MyPageView
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MyPageCVCell.identifier, for: indexPath) as! MyPageCVCell
         //셀에 접근해서 setlikeImage 함수에다 url 넣어줌
         if userDataManager.userData[myId] != nil {
             cell.setlikeImage(with: "https://img.youtube.com/vi/\((UserDataManager.shared.userData[myId]!.likeList[indexPath.row]))/0.jpg")
