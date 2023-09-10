@@ -15,7 +15,7 @@ final class UserDataManager{
     
     private let decoder = JSONDecoder()
     
-    public var userData:[String:UserData] = ["1":UserData(passWord: "1", nickName: "test", likeList: [])]
+    public var userData:[String:UserData] = ["1":UserData(passWord: "1", nickName: "1", likeList: [])]
     
     public var loginId = ""
     

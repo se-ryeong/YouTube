@@ -19,7 +19,7 @@ final class MyPageViewController: UIViewController {
         return MyPageframe
     }()
     
-    let idLabel = UILabel()
+    let nickNameLabel = UILabel()
     
     let likeListLabel = UILabel()
     
@@ -28,6 +28,10 @@ final class MyPageViewController: UIViewController {
     let profilEditButton = UIButton()
     
     let userDataManager = UserDataManager.shared
+    
+    lazy var myId = userDataManager.loginId
+    
+    //Cannot use instance member 'userDataManager' within property initializer; property initializers run before 'self' is available
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,15 +56,16 @@ final class MyPageViewController: UIViewController {
     }
     
     func setUpIdLabel(){
-        view.addSubview(idLabel)
-        idLabel.translatesAutoresizingMaskIntoConstraints = false
-        idLabel.text = "안녕하세요 \(userDataManager.loginId) 님"
-        idLabel.font = UIFont.boldSystemFont(ofSize: 40)
-        idLabel.textColor = .white
+        view.addSubview(nickNameLabel)
+        nickNameLabel.translatesAutoresizingMaskIntoConstraints = false
+        if userDataManager.userData[myId] != nil {
+            nickNameLabel.text = "안녕하세요 \(userDataManager.userData[myId]!.nickName) 님" }
+        nickNameLabel.font = UIFont.boldSystemFont(ofSize: 40)
+        nickNameLabel.textColor = .white
         NSLayoutConstraint.activate([
-            idLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            idLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .defaultPadding),
-            idLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.defaultPadding),
+            nickNameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            nickNameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .defaultPadding),
+            nickNameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.defaultPadding),
         ])
     }
     
@@ -76,13 +81,14 @@ final class MyPageViewController: UIViewController {
     func setUpProfileEditButton(){
         view.addSubview(profilEditButton)
         profilEditButton.translatesAutoresizingMaskIntoConstraints = false
-        profilEditButton.setTitle("프로필 수정", for: .normal)
+        profilEditButton.setTitle("닉네임 수정", for: .normal)
         profilEditButton.backgroundColor = .darkGray
+        profilEditButton.addTarget(self, action: #selector(didTapEditButton), for: .touchUpInside)
         profilEditButton.layer.cornerRadius = 4
         NSLayoutConstraint.activate([
-            profilEditButton.topAnchor.constraint(equalTo: idLabel.bottomAnchor, constant: .defaultPadding),
-            profilEditButton.leadingAnchor.constraint(equalTo: idLabel.leadingAnchor),
-            profilEditButton.trailingAnchor.constraint(equalTo: idLabel.trailingAnchor),
+            profilEditButton.topAnchor.constraint(equalTo: nickNameLabel.bottomAnchor, constant: .defaultPadding),
+            profilEditButton.leadingAnchor.constraint(equalTo: nickNameLabel.leadingAnchor),
+            profilEditButton.trailingAnchor.constraint(equalTo: nickNameLabel.trailingAnchor),
         ])
     }
     
@@ -121,8 +127,8 @@ final class MyPageViewController: UIViewController {
         let alert = UIAlertController(title: "로그아웃", message: "로그아웃 하시겠습니까?", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
         let oklAction = UIAlertAction(title: "ok", style: .destructive) { _ in  let vc = SignInViewController()
-            UserDataManager.shared.autoLogin = false
-            UserDataManager.shared.setData()
+            self.userDataManager.autoLogin = false
+            self.userDataManager.setData()
             (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootVC(vc, animated: true)}
         alert.addAction(cancelAction)
         alert.addAction(oklAction)
@@ -130,7 +136,25 @@ final class MyPageViewController: UIViewController {
         
     }
     
-    
+    @objc func didTapEditButton(){
+        let alert = UIAlertController(title: "닉네임 수정", message: nil, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
+        let okAction = UIAlertAction(title: "ok", style: .destructive) {_ in
+            guard let newNickName = alert.textFields?[0].text else { return }
+            if self.userDataManager.userData[self.myId] != nil {
+                self.userDataManager.userData[self.myId]!.nickName = newNickName
+                self.userDataManager.setData()
+                self.nickNameLabel.text = "안녕하세요 \(newNickName) 님"
+            }
+            print(newNickName)
+        }
+        alert.addAction(cancelAction)
+        alert.addAction(okAction)
+        alert.addTextField { (textField) in
+            textField.placeholder = "변경하실 닉네임을 입력해주세요."
+        }
+        present(alert, animated: true, completion: nil)
+    }
     
     
 }
@@ -143,8 +167,7 @@ extension MyPageViewController: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! MyPageView
         //셀에 접근해서 setlikeImage 함수에다 url 넣어줌
-        let myId = UserDataManager.shared.loginId
-        if UserDataManager.shared.userData[myId] != nil {
+        if userDataManager.userData[myId] != nil {
             cell.setlikeImage(with: "https://img.youtube.com/vi/\((UserDataManager.shared.userData[myId]!.likeList[indexPath.row]))/0.jpg")
         }
         
